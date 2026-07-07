@@ -2,18 +2,18 @@ import React, { useState, useEffect } from 'react';
 import BuilderUI from './components/BuilderUI';
 import CVPreview from './components/CVPreview';
 
-// Initial pre-populated data (Bruno Baldeon's CV details)
+// Initial pre-populated data (Generic CV details for demo)
 const initialCVData = {
   personalInfo: {
-    name: 'BRUNO BALDEON LAVALLE',
-    title: 'BACHILLER EN INGENIERÍA INDUSTRIAL'
+    name: 'JUAN PÉREZ GÓMEZ',
+    title: 'INGENIERO DE SOFTWARE / ANALISTA DE DATOS'
   },
   contactItems: [
-    { id: '1', type: 'address', label: 'Carabayllo, Lima', url: '', iconName: 'MapPin' },
-    { id: '2', type: 'phone', label: '921 900 483 / 998 384 815', url: '', iconName: 'Phone' },
-    { id: '3', type: 'email', label: 'brunodb98@gmail.com', url: 'mailto:brunodb98@gmail.com', iconName: 'Mail' },
-    { id: '4', type: 'linkedin', label: 'linkedin.com/in/brunobaldeon', url: 'https://www.linkedin.com/in/brunobaldeon/', iconName: 'Linkedin' },
-    { id: '5', type: 'portfolio', label: 'Portafolio de Proyectos', url: 'https://mavenshowcase.com/profile/b8d10390-a0f1-7056-1608-da5609ff17ad', iconName: 'Globe' }
+    { id: '1', type: 'address', label: 'Caracas, Venezuela', url: '', iconName: 'MapPin' },
+    { id: '2', type: 'phone', label: '+58 212 555 1234', url: '', iconName: 'Phone' },
+    { id: '3', type: 'email', label: 'juan.perez@email.com', url: 'mailto:juan.perez@email.com', iconName: 'Mail' },
+    { id: '4', type: 'linkedin', label: 'linkedin.com/in/juanperez', url: 'https://www.linkedin.com/', iconName: 'Linkedin' },
+    { id: '5', type: 'portfolio', label: 'Portafolio de Proyectos', url: 'https://github.com/', iconName: 'Globe' }
   ],
   sections: [
     {
@@ -21,7 +21,7 @@ const initialCVData = {
       type: 'text',
       title: 'Resumen Profesional',
       visible: true,
-      content: 'Ingeniero Industrial con sólida experiencia en gestión logística, abastecimiento y negociación estratégica. Especializado en Business Intelligence (BI) y Análisis de Datos para la optimización de procesos y reducción de costos. Experto en el desarrollo de dashboards en Power BI y automatización con Python (Pandas) para transformar datos operativos en decisiones estratégicas de alto impacto. Enfocado en la mejora continua y rentabilidad.'
+      content: 'Profesional de Ingeniería con sólida experiencia en análisis de datos, desarrollo de software y optimización de procesos operativos. Especializado en Business Intelligence (BI) y automatización utilizando Python y SQL. Apasionado por transformar datos complejos en tableros visuales interactivos y soluciones de software de alto impacto que ayuden a la toma de decisiones estratégicas en entornos de rápido crecimiento.'
     },
     {
       id: 'experience',
@@ -30,25 +30,23 @@ const initialCVData = {
       visible: true,
       items: [
         {
-          role: 'Analista de Compras',
-          company: 'NKC FOOD SERVICE SAC',
-          date: 'Julio 2024 -- Octubre 2025',
+          role: 'Analista de Datos Senior',
+          company: 'TECH SOLUTIONS INC.',
+          date: 'Enero 2024 -- Actualidad',
           bullets: [
-            'Impulsé estrategias de ahorro basadas en Data Analysis, modelando históricos de compra para optimizar volúmenes de pedido y renegociar tarifas, logrando una reducción de costos del 15% en el primer semestre de 2025.',
-            'Garanticé la disponibilidad de inventario activo (cero quiebres de stock) alineado a los requerimientos del área de operaciones, asegurando la continuidad del flujo de trabajo.',
-            'Participé en la implementación del sistema ERP corporativo, diseñando la estructura de datos maestros (artículos/proveedores) y ejecutando la migración masiva de datos para garantizar la integridad de la información logística.',
-            'Realicé el control y cuadre de caja chica, garantizando la transparencia de los gastos menores y la correcta sustentación de las operaciones diarias.',
-            'Planifiqué y coordiné entregas de mercadería, optimizando los tiempos de recepción y distribución interna.'
+            'Lideré el diseño e implementación de un modelo de BI en Power BI que optimizó los reportes de ventas, reduciendo el tiempo de preparación de informes semanales en un 40%.',
+            'Desarrollé scripts en Python (Pandas/NumPy) para automatizar la limpieza y migración de datos de un sistema legacy a la base de datos centralizada.',
+            'Colaboré con equipos multidisciplinarios para definir KPIs operativos y mejorar la eficiencia en la cadena de distribución en un 12%.'
           ]
         },
         {
-          role: 'Asistente Administrativo / Logístico',
-          company: 'LOGICA INDUSTRIAL S.R.L.',
-          date: 'Octubre 2020 -- Septiembre 2022',
+          role: 'Asistente de Sistemas / Soporte TI',
+          company: 'GLOBAL LOGISTICS CORP.',
+          date: 'Marzo 2021 -- Diciembre 2023',
           bullets: [
-            'Gestioné procesos de facturación y elaboración de cotizaciones, mejorando la precisión administrativa y el flujo comercial.',
-            'Coordiné eficazmente con proveedores para el abastecimiento oportuno de materiales.',
-            'Redacté diversos documentos comerciales y administrativos para el soporte de la gerencia.'
+            'Supervisé el mantenimiento de servidores de bases de datos locales y presté soporte técnico a más de 100 usuarios corporativos.',
+            'Diseñé y documenté flujos de procesos administrativos, reduciendo incidencias de facturación recurrente en un 15%.',
+            'Colaboré en la inducción técnica de nuevos empleados y la administración de accesos y permisos de red.'
           ]
         }
       ]
@@ -60,13 +58,12 @@ const initialCVData = {
       visible: true,
       items: [
         {
-          title: 'Dashboard de Analítica de Compras & Abastecimiento 2025',
-          date: 'Portfolio Personal',
-          technologies: 'Microsoft Power BI, Python (Pandas), SQLite, DAX Avanzado',
+          title: 'Dashboard de Control de Inventarios Automatizado',
+          date: 'Proyecto de Portafolio',
+          technologies: 'Power BI, Python (Pandas), SQL Server, DAX',
           bullets: [
-            'Desarrollé un sistema integral de Business Intelligence para el control de compras en un concesionario de alimentos, integrando bases de datos SQLite y scripts de Python para la limpieza automática de datos.',
-            'Implementé medidas DAX complejas para Inteligencia de Tiempo (Year-over-Year, Variaciones Mensuales) y análisis de inflación (Price Variance Analysis).',
-            'Diseñé matrices de "Semáforo" para detectar variaciones de precios de proveedores en tiempo real, facilitando la re-negociación inmediata y evitando sobrecostos.'
+            'Construí una solución integral para el análisis de rotación de inventarios, conectando múltiples fuentes de datos en tiempo real mediante consultas SQL.',
+            'Programé alertas dinámicas por correo electrónico ante quiebres de stock utilizando flujos automatizados de bajo costo.'
           ]
         }
       ]
@@ -78,16 +75,16 @@ const initialCVData = {
       visible: true,
       items: [
         {
-          institution: 'Universidad Tecnológica del Perú (UTP)',
-          degree: 'Bachiller en Ingeniería Industrial',
-          date: '2020 -- 2025',
-          status: 'Bachiller en trámite (Egresado en Diciembre 2025).'
+          institution: 'Universidad Nacional de Ingeniería',
+          degree: 'Licenciatura en Ingeniería de Sistemas',
+          date: '2016 -- 2021',
+          status: 'Graduado (Título en trámite).'
         },
         {
-          institution: 'IDAT',
-          degree: 'Desarrollo de Sistemas de Información',
-          date: '2022 -- 2023',
-          status: 'Formación técnica en fundamentos de programación y base de datos (1 año cursado).'
+          institution: 'Instituto Tecnológico Superior',
+          degree: 'Diplomado en Analítica de Negocios y Big Data',
+          date: '2022',
+          status: 'Certificado de Especialización obtenido.'
         }
       ]
     },
@@ -97,17 +94,17 @@ const initialCVData = {
       title: 'Voluntariado y Habilidades',
       visible: true,
       skillsList: [
-        { category: 'Análisis de Datos & BI', items: 'Microsoft Power BI (DAX, Modelado de Datos), Microsoft Excel (Avanzado)' },
-        { category: 'Programación & BD', items: 'SQL Server (Básico), Python (Pandas, NumPy, Matplotlib)' },
-        { category: 'Inteligencia Artificial', items: 'Prompt Engineering (Google Antigravity + Gemini, ChatGPT)' },
-        { category: 'Logística & Gestión', items: 'Gestión de inventarios, Negociación con proveedores, Análisis de costos, ERP' }
+        { category: 'Análisis de Datos & BI', items: 'Microsoft Power BI (DAX, Modelado de datos), Excel Avanzado' },
+        { category: 'Programación & BD', items: 'SQL (PostgreSQL, SQL Server), Python (Pandas, NumPy, Matplotlib)' },
+        { category: 'Idiomas', items: 'Español (Nativo), Inglés (Intermedio)' },
+        { category: 'Competencias Clave', items: 'Trabajo en equipo, Automatización de procesos, Resolución de problemas' }
       ],
       languages: [
         { language: 'Español', level: 'Nativo' },
-        { language: 'Inglés', level: 'Intermedio (Lectura técnica y documentación)' }
+        { language: 'Inglés', level: 'Intermedio (Lectura y conversación técnica)' }
       ],
       volunteering: [
-        { role: 'Misionero Cristiano (Argentina)', description: 'Desarrollo de labores sociales, liderazgo y trabajo en equipo en entornos multiculturales (2017 -- 2019).' }
+        { role: 'Tutor de Programación Voluntario', description: 'Impartí clases básicas de lógica de programación y Python a jóvenes de escasos recursos (2022 -- 2023).' }
       ]
     }
   ]
