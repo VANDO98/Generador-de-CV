@@ -177,13 +177,38 @@ export default function BuilderUI({
           <h1 className="text-lg font-bold">Generador CV ATS</h1>
           <p className="text-xs text-purple-200">Estilo Harvard LaTeX en HTML</p>
         </div>
-        <button 
-          onClick={() => window.print()}
-          className="flex items-center gap-1.5 bg-green-600 hover:bg-green-700 text-white text-xs font-semibold px-3 py-2 rounded-lg transition-colors cursor-pointer shadow-md"
-        >
-          <Printer className="w-3.5 h-3.5" />
-          Imprimir / PDF
-        </button>
+        <div className="flex items-center gap-2">
+          {/* Export Backup Button */}
+          <button 
+            onClick={onExportJSON}
+            title="Descargar respaldo (JSON)"
+            className="p-2 bg-purple-700 hover:bg-purple-600 text-white rounded-lg transition-colors cursor-pointer shadow-md flex items-center justify-center"
+          >
+            <Download className="w-4 h-4" />
+          </button>
+          
+          {/* Import Backup Button */}
+          <label 
+            title="Subir respaldo (JSON)"
+            className="p-2 bg-purple-700 hover:bg-purple-600 text-white rounded-lg transition-colors cursor-pointer shadow-md flex items-center justify-center"
+          >
+            <Upload className="w-4 h-4" />
+            <input 
+              type="file" 
+              accept=".json" 
+              onChange={handleFileChange}
+              className="hidden" 
+            />
+          </label>
+
+          <button 
+            onClick={() => window.print()}
+            className="flex items-center gap-1.5 bg-green-600 hover:bg-green-700 text-white text-xs font-semibold px-3 py-2 rounded-lg transition-colors cursor-pointer shadow-md"
+          >
+            <Printer className="w-3.5 h-3.5" />
+            Imprimir / PDF
+          </button>
+        </div>
       </div>
 
       {/* Tabs */}
