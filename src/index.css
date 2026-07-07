@@ -33,7 +33,7 @@ body {
 .a4-page {
   width: 210mm;
   min-height: 297mm;
-  padding: 15mm;
+  padding: 20mm 25mm;
   background: white;
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
   font-family: var(--font-serif);
@@ -86,7 +86,7 @@ body {
     width: 210mm !important;
     min-height: 297mm !important;
     height: auto !important;
-    padding: 15mm !important; /* Reducido a 15mm para más espacio y evitar saltos innecesarios */
+    padding: 20mm 25mm !important;
     margin: 0 auto !important;
     box-shadow: none !important;
     background: white !important;
