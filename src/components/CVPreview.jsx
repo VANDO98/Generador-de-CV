@@ -82,7 +82,7 @@ export default function CVPreview({ data, sectionOrder }) {
           switch (section.type) {
             case 'text':
               return (
-                <div key={section.id} className="mb-4">
+                <div key={section.id} className="mb-3">
                   <h2 className="latex-section-title">{section.title}</h2>
                   <p className="text-justify text-gray-800 mt-1.5 leading-relaxed whitespace-pre-line">
                     {section.content}
@@ -92,7 +92,7 @@ export default function CVPreview({ data, sectionOrder }) {
 
             case 'list':
               return (
-                <div key={section.id} className="mb-4">
+                <div key={section.id} className="mb-3">
                   <h2 className="latex-section-title">{section.title}</h2>
                   <div className="space-y-3 mt-2">
                     {section.items && section.items.map((item, idx) => (
@@ -125,7 +125,7 @@ export default function CVPreview({ data, sectionOrder }) {
 
             case 'education':
               return (
-                <div key={section.id} className="mb-4">
+                <div key={section.id} className="mb-3">
                   <h2 className="latex-section-title">{section.title}</h2>
                   <div className="space-y-2.5 mt-2">
                     {section.items && section.items.map((item, idx) => (
@@ -144,7 +144,7 @@ export default function CVPreview({ data, sectionOrder }) {
 
             case 'skills':
               return (
-                <div key={section.id} className="mb-4">
+                <div key={section.id} className="mb-3">
                   <h2 className="latex-section-title">{section.title}</h2>
                   <div className="mt-2 space-y-2">
                     {section.skillsList && section.skillsList.length > 0 && (

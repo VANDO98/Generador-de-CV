@@ -12,8 +12,7 @@ const initialCVData = {
     { id: '1', type: 'address', label: 'Caracas, Venezuela', url: '', iconName: 'MapPin' },
     { id: '2', type: 'phone', label: '+58 212 555 1234', url: '', iconName: 'Phone' },
     { id: '3', type: 'email', label: 'juan.perez@email.com', url: 'mailto:juan.perez@email.com', iconName: 'Mail' },
-    { id: '4', type: 'linkedin', label: 'linkedin.com/in/juanperez', url: 'https://www.linkedin.com/', iconName: 'Linkedin' },
-    { id: '5', type: 'portfolio', label: 'Portafolio de Proyectos', url: 'https://github.com/', iconName: 'Globe' }
+    { id: '4', type: 'linkedin', label: 'linkedin.com/in/juanperez', url: 'https://www.linkedin.com/', iconName: 'Linkedin' }
   ],
   sections: [
     {

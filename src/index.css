@@ -33,7 +33,7 @@ body {
 .a4-page {
   width: 210mm;
   min-height: 297mm;
-  padding: 20mm;
+  padding: 15mm;
   background: white;
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
   font-family: var(--font-serif);
@@ -46,6 +46,10 @@ body {
 
 /* Reglas de Impresión */
 @media print {
+  @page {
+    margin: 0; /* Elimina márgenes impuestos por el navegador */
+  }
+
   /* Ocultar elementos no imprimibles */
   .no-print, 
   .no-print * {
@@ -82,7 +86,7 @@ body {
     width: 210mm !important;
     min-height: 297mm !important;
     height: auto !important;
-    padding: 20mm !important;
+    padding: 15mm !important; /* Reducido a 15mm para más espacio y evitar saltos innecesarios */
     margin: 0 auto !important;
     box-shadow: none !important;
     background: white !important;
@@ -100,7 +104,7 @@ body {
   color: #323232;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  margin-top: 1rem;
+  margin-top: 0.75rem;
   margin-bottom: 0.25rem;
   display: flex;
   flex-direction: column;
