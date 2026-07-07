@@ -1,0 +1,111 @@
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..700;1,400..700&family=Inter:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-serif: "EB Garamond", Georgia, serif;
+  --font-sans: "Inter", sans-serif;
+}
+
+/* Custom CSS variables and styles */
+:root {
+  font-family: var(--font-sans);
+  color-scheme: light;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #f3f4f6;
+  color: #1f2937;
+}
+
+/* Estilos de simulación de página A4 en pantalla */
+.page-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 2rem;
+  background-color: #f3f4f6;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+.a4-page {
+  width: 210mm;
+  min-height: 297mm;
+  padding: 20mm;
+  background: white;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  font-family: var(--font-serif);
+  color: #2b2b2b; /* darkgray en LaTeX: RGB 50,50,50 */
+  line-height: 1.4;
+  box-sizing: border-box;
+  position: relative;
+  flex-shrink: 0; /* Evita que flexbox reduzca el ancho de la página */
+}
+
+/* Reglas de Impresión */
+@media print {
+  body {
+    background-color: white;
+    color: black;
+    margin: 0;
+    padding: 0;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+
+  .page-container {
+    padding: 0 !important;
+    margin: 0 !important;
+    background: transparent !important;
+    display: block !important;
+  }
+
+  .a4-page {
+    width: 210mm;
+    height: 297mm;
+    padding: 20mm !important;
+    margin: 0 !important;
+    box-shadow: none !important;
+    background: white !important;
+    page-break-after: always;
+  }
+}
+
+/* Formateo estilo LaTeX Harvard */
+.latex-section-title {
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #323232;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: 1rem;
+  margin-bottom: 0.25rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.latex-section-title::after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 0.5px;
+  background-color: #323232;
+  margin-top: 2px;
+}
+
+.latex-bullet-list {
+  list-style-type: disc;
+  margin-left: 1.25rem;
+  margin-top: 0.15rem;
+  margin-bottom: 0.25rem;
+}
+
+.latex-bullet-list li {
+  padding-left: 0.1rem;
+  margin-bottom: 0.1rem;
+}
