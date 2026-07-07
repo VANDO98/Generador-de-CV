@@ -46,15 +46,26 @@ body {
 
 /* Reglas de Impresión */
 @media print {
-  body {
-    background-color: white;
-    color: black;
-    margin: 0;
-    padding: 0;
+  /* Ocultar elementos no imprimibles */
+  .no-print, 
+  .no-print * {
+    display: none !important;
   }
 
-  .no-print {
-    display: none !important;
+  /* Resetear todos los contenedores padres para que fluyan de manera natural */
+  html, body, #root, 
+  #root > div, 
+  #root > div > div {
+    height: auto !important;
+    min-height: auto !important;
+    overflow: visible !important;
+    display: block !important;
+    position: static !important;
+    width: auto !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
   }
 
   .page-container {
@@ -62,16 +73,22 @@ body {
     margin: 0 !important;
     background: transparent !important;
     display: block !important;
+    width: 100% !important;
+    height: auto !important;
+    overflow: visible !important;
   }
 
   .a4-page {
-    width: 210mm;
-    height: 297mm;
+    width: 210mm !important;
+    min-height: 297mm !important;
+    height: auto !important;
     padding: 20mm !important;
-    margin: 0 !important;
+    margin: 0 auto !important;
     box-shadow: none !important;
     background: white !important;
-    page-break-after: always;
+    overflow: visible !important;
+    display: block !important;
+    page-break-after: avoid;
   }
 }
 
