@@ -47,7 +47,8 @@ body {
 /* Reglas de Impresión */
 @media print {
   @page {
-    margin: 0; /* Elimina márgenes impuestos por el navegador */
+    size: A4;
+    margin: 20mm 25mm !important; /* Margen oficial de la página administrado por el navegador */
   }
 
   /* Ocultar elementos no imprimibles */
@@ -83,16 +84,15 @@ body {
   }
 
   .a4-page {
-    width: 210mm !important;
-    min-height: 297mm !important;
+    width: 100% !important; /* Llena el espacio printable definido por @page */
+    min-height: 0 !important;
     height: auto !important;
-    padding: 20mm 25mm !important;
-    margin: 0 auto !important;
+    padding: 0 !important; /* Remueve el padding interno para evitar duplicar el margen de @page */
+    margin: 0 !important;
     box-shadow: none !important;
-    background: white !important;
+    background: transparent !important;
     overflow: visible !important;
     display: block !important;
-    page-break-after: avoid;
   }
 }
 
@@ -108,6 +108,8 @@ body {
   margin-bottom: 0.25rem;
   display: flex;
   flex-direction: column;
+  page-break-after: avoid; /* Evita que la sección quede huérfana al final de la página */
+  break-after: avoid;
 }
 
 .latex-section-title::after {
@@ -117,6 +119,11 @@ body {
   height: 0.5px;
   background-color: #323232;
   margin-top: 2px;
+}
+
+.latex-item {
+  page-break-inside: avoid; /* Evita que un elemento de experiencia/proyecto se corte a la mitad */
+  break-inside: avoid;
 }
 
 .latex-bullet-list {

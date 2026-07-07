@@ -96,7 +96,7 @@ export default function CVPreview({ data, sectionOrder }) {
                   <h2 className="latex-section-title">{section.title}</h2>
                   <div className="space-y-3 mt-2">
                     {section.items && section.items.map((item, idx) => (
-                      <div key={idx} className="text-gray-800">
+                      <div key={idx} className="text-gray-800 latex-item">
                         <div className="flex justify-between items-baseline font-bold">
                           <span>{item.role || item.title}</span>
                           <span className="text-xs font-normal italic">{item.date}</span>
@@ -129,7 +129,7 @@ export default function CVPreview({ data, sectionOrder }) {
                   <h2 className="latex-section-title">{section.title}</h2>
                   <div className="space-y-2.5 mt-2">
                     {section.items && section.items.map((item, idx) => (
-                      <div key={idx} className="text-gray-800">
+                      <div key={idx} className="text-gray-800 latex-item">
                         <div className="flex justify-between items-baseline">
                           <span className="font-bold">{item.institution}</span>
                           <span className="text-xs italic">{item.date}</span>
