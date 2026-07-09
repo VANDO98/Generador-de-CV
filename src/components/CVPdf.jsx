@@ -69,6 +69,7 @@ const styles = StyleSheet.create({
   sectionHeader: {
     marginBottom: 5,
     marginTop: 6,
+    breakAfter: 'avoid',
   },
   sectionTitle: {
     fontFamily: 'Times-Bold',
@@ -299,7 +300,7 @@ export const CVPdf = ({ data, sectionOrder }) => {
           if (!section || !section.visible) return null;
 
           return (
-            <View key={section.id} style={styles.section} wrap={false}>
+            <View key={section.id} style={styles.section}>
               {/* Título de la sección */}
               <View style={styles.sectionHeader}>
                 <Text style={styles.sectionTitle}>{section.title}</Text>
