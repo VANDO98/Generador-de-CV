@@ -243,20 +243,7 @@ const styles = StyleSheet.create({
   },
 });
 
-// ── Mapa de íconos Unicode para los contactos (sin SVG) ───────────────────
-// Estos caracteres se renderizan perfectamente en cualquier PDF sin problemas de CORS ni alineación
-const CONTACT_ICONS = {
-  MapPin:   '📍',
-  Phone:    '☎',
-  Mail:     '✉',
-  Linkedin: '🔗',
-  Github:   '⌨',
-  Globe:    '🌐',
-  Link:     '🔗',
-  FileText: '📄',
-};
-
-// ── Componente principal ───────────────────────────────────────────────────
+// ── Componente principal ─────────────────────────────────────────────────────
 export const CVPdf = ({ data, sectionOrder }) => {
   const { personalInfo, sections, contactItems } = data;
   const getSection = (id) => sections.find((s) => s.id === id);
@@ -272,24 +259,20 @@ export const CVPdf = ({ data, sectionOrder }) => {
             <Text style={styles.jobTitle}>{personalInfo.title}</Text>
           ) : null}
 
-          {/* Fila de contacto */}
+          {/* Fila de contacto — solo texto, sin iconos para máxima compatibilidad */}
           <View style={styles.contactRow}>
             {(contactItems || []).map((item, idx) => {
               if (!item.label) return null;
-              const icon = CONTACT_ICONS[item.iconName] || '•';
               return (
                 <View key={item.id} style={{ flexDirection: 'row', alignItems: 'center' }}>
                   {idx > 0 ? <Text style={styles.contactSep}>|</Text> : null}
-                  <View style={styles.contactItem}>
-                    <Text style={styles.contactIcon}>{icon} </Text>
-                    {item.url ? (
-                      <Link src={item.url} style={{ textDecoration: 'none' }}>
-                        <Text style={styles.linkText}>{item.label}</Text>
-                      </Link>
-                    ) : (
-                      <Text style={styles.plainText}>{item.label}</Text>
-                    )}
-                  </View>
+                  {item.url ? (
+                    <Link src={item.url} style={{ textDecoration: 'none' }}>
+                      <Text style={styles.linkText}>{item.label}</Text>
+                    </Link>
+                  ) : (
+                    <Text style={styles.plainText}>{item.label}</Text>
+                  )}
                 </View>
               );
             })}
