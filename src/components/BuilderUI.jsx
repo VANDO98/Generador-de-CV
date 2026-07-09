@@ -4,7 +4,7 @@ import {
   Save, Download, Upload, Printer, FolderOpen, PlusCircle,
   Globe, Mail, Phone, MapPin, Link, FileText, Edit2
 } from 'lucide-react';
-import { PDFDownloadLink } from '@react-pdf/renderer';
+import { PDFDownloadLink, usePDF } from '@react-pdf/renderer';
 import { CVPdf } from './CVPdf';
 
 const ICON_OPTIONS = [
@@ -33,6 +33,29 @@ export default function BuilderUI({
 }) {
   const [newProfileName, setNewProfileName] = useState('');
   const [activeTab, setActiveTab] = useState('data'); // 'data' | 'structure' | 'versions'
+  const [pdfError, setPdfError] = useState(null);
+
+  // Genera el PDF y lo descarga directamente
+  const handleDownloadPdf = async () => {
+    setPdfError(null);
+    try {
+      const { pdf } = await import('@react-pdf/renderer');
+      const doc = <CVPdf data={data} sectionOrder={sectionOrder} />;
+      const blob = await pdf(doc).toBlob();
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      const fileName = `CV_${data.personalInfo.name ? data.personalInfo.name.replace(/\s+/g, '_') : 'Nuevo'}.pdf`;
+      link.href = url;
+      link.download = fileName;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    } catch (err) {
+      console.error('Error generando PDF:', err);
+      setPdfError('Error al generar PDF. Revisa la consola del navegador.');
+    }
+  };
 
   // States for adding custom sections
   const [showAddSection, setShowAddSection] = useState(false);
@@ -203,18 +226,14 @@ export default function BuilderUI({
             />
           </label>
 
-          <PDFDownloadLink
-            document={<CVPdf data={data} sectionOrder={sectionOrder} />}
-            fileName={`CV_${data.personalInfo.name ? data.personalInfo.name.replace(/\s+/g, '_') : 'Nuevo'}.pdf`}
+          <button
+            onClick={handleDownloadPdf}
             className="flex items-center gap-1.5 bg-green-600 hover:bg-green-700 text-white text-xs font-semibold px-3 py-2 rounded-lg transition-colors cursor-pointer shadow-md"
+            title="Descargar el CV como PDF con texto seleccionable (compatible con ATS)"
           >
-            {({ loading }) => (
-              <>
-                <Printer className="w-3.5 h-3.5" />
-                {loading ? 'Generando...' : 'Descargar PDF'}
-              </>
-            )}
-          </PDFDownloadLink>
+            <Printer className="w-3.5 h-3.5" />
+            Descargar PDF
+          </button>
         </div>
       </div>
 
