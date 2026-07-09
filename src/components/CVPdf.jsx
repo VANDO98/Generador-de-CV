@@ -48,7 +48,7 @@ const S = StyleSheet.create({
   },
   jobTitle: {
     fontFamily: 'Garamond', fontWeight: 'bold', fontStyle: 'normal',
-    fontSize: 11.5, color: '#374151', marginTop: 5,
+    fontSize: 11.5, color: '#374151', marginTop: 12,
     textTransform: 'uppercase', letterSpacing: 1, textAlign: 'center',
   },
 
@@ -156,55 +156,55 @@ const S = StyleSheet.create({
 const IC = '#6b7280'; // color gris fijo para todos los iconos
 
 const IconMapPin = () => (
-  <Svg width={10} height={10} viewBox="0 0 24 24" fill="none" stroke={IC} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <Path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
-    <Circle cx="12" cy="10" r="3" />
+  <Svg width={10} height={10} viewBox="0 0 24 24">
+    <Path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" fill="none" stroke={IC} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+    <Circle cx="12" cy="10" r="3" fill="none" stroke={IC} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
   </Svg>
 );
 const IconPhone = () => (
-  <Svg width={10} height={10} viewBox="0 0 24 24" fill="none" stroke={IC} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <Path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.11 15a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 2.82 4h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+  <Svg width={10} height={10} viewBox="0 0 24 24">
+    <Path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.11 15a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 2.82 4h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" fill="none" stroke={IC} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
   </Svg>
 );
 const IconMail = () => (
-  <Svg width={10} height={10} viewBox="0 0 24 24" fill="none" stroke={IC} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <Rect x="2" y="4" width="20" height="16" rx="2" />
-    <Path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+  <Svg width={10} height={10} viewBox="0 0 24 24">
+    <Rect x="2" y="4" width="20" height="16" rx="2" fill="none" stroke={IC} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+    <Path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" fill="none" stroke={IC} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
   </Svg>
 );
 const IconLinkedin = () => (
-  <Svg width={10} height={10} viewBox="0 0 24 24" fill="none" stroke={IC} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <Path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
-    <Rect x="2" y="9" width="4" height="12" />
-    <Circle cx="4" cy="4" r="2" />
+  <Svg width={10} height={10} viewBox="0 0 24 24">
+    <Path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" fill="none" stroke={IC} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+    <Rect x="2" y="9" width="4" height="12" fill="none" stroke={IC} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+    <Circle cx="4" cy="4" r="2" fill="none" stroke={IC} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
   </Svg>
 );
 const IconGithub = () => (
-  <Svg width={10} height={10} viewBox="0 0 24 24" fill="none" stroke={IC} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <Path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
-    <Path d="M9 18c-4.51 2-5-2-7-2" />
+  <Svg width={10} height={10} viewBox="0 0 24 24">
+    <Path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" fill="none" stroke={IC} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+    <Path d="M9 18c-4.51 2-5-2-7-2" fill="none" stroke={IC} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
   </Svg>
 );
 const IconGlobe = () => (
-  <Svg width={10} height={10} viewBox="0 0 24 24" fill="none" stroke={IC} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <Circle cx="12" cy="12" r="10" />
-    <Path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-    <Path d="M2 12h20" />
+  <Svg width={10} height={10} viewBox="0 0 24 24">
+    <Circle cx="12" cy="12" r="10" fill="none" stroke={IC} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+    <Path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" fill="none" stroke={IC} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+    <Path d="M2 12h20" fill="none" stroke={IC} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
   </Svg>
 );
 const IconLink = () => (
-  <Svg width={10} height={10} viewBox="0 0 24 24" fill="none" stroke={IC} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <Path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
-    <Path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+  <Svg width={10} height={10} viewBox="0 0 24 24">
+    <Path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" fill="none" stroke={IC} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+    <Path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" fill="none" stroke={IC} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
   </Svg>
 );
 const IconFileText = () => (
-  <Svg width={10} height={10} viewBox="0 0 24 24" fill="none" stroke={IC} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <Path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" />
-    <Path d="M14 2v4a2 2 0 0 0 2 2h4" />
-    <Path d="M10 9H8" />
-    <Path d="M16 13H8" />
-    <Path d="M16 17H8" />
+  <Svg width={10} height={10} viewBox="0 0 24 24">
+    <Path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" fill="none" stroke={IC} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+    <Path d="M14 2v4a2 2 0 0 0 2 2h4" fill="none" stroke={IC} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+    <Path d="M10 9H8" fill="none" stroke={IC} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+    <Path d="M16 13H8" fill="none" stroke={IC} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+    <Path d="M16 17H8" fill="none" stroke={IC} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
   </Svg>
 );
 
