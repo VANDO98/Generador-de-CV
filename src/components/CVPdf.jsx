@@ -1,10 +1,11 @@
 import React from 'react';
-import { Page, Text, View, Document, StyleSheet, Font, Link } from '@react-pdf/renderer';
+import {
+  Page, Text, View, Document, StyleSheet, Font, Link, Svg, Path, Rect, Circle
+} from '@react-pdf/renderer';
 
-// ── Registro de fuentes locales (servidas desde /public/fonts/) ────────────
-// Al estar en el mismo origen, no hay CORS y la librería las carga correctamente.
+// ── Fuentes locales (sin CORS, servidas desde el mismo origen) ─────────────
 Font.register({
-  family: 'EB Garamond',
+  family: 'Garamond',
   fonts: [
     {
       src: `${window.location.origin}${import.meta.env.BASE_URL}fonts/EBGaramond-Regular.ttf`,
@@ -25,301 +26,270 @@ Font.register({
 });
 
 // ── Estilos ────────────────────────────────────────────────────────────────
-const styles = StyleSheet.create({
+const S = StyleSheet.create({
   page: {
     paddingTop: '25mm',
     paddingBottom: '25mm',
     paddingLeft: '25mm',
     paddingRight: '25mm',
-    fontFamily: 'EB Garamond',
+    fontFamily: 'Garamond',
+    fontStyle: 'normal',
+    fontWeight: 'normal',
     fontSize: 11,
     color: '#2b2b2b',
     lineHeight: 1.4,
   },
 
   // Header
-  header: {
-    marginBottom: 16,
-    alignItems: 'center',
-  },
+  header: { marginBottom: 16, alignItems: 'center' },
   name: {
-    fontSize: 22,
-    fontFamily: 'EB Garamond',
-    fontWeight: 'bold',
-    color: '#1f2937',
-    textTransform: 'uppercase',
-    letterSpacing: 2,
-    textAlign: 'center',
+    fontFamily: 'Garamond', fontWeight: 'bold', fontStyle: 'normal',
+    fontSize: 22, color: '#1f2937', textTransform: 'uppercase', letterSpacing: 2, textAlign: 'center',
   },
   jobTitle: {
-    fontSize: 11.5,
-    fontFamily: 'EB Garamond',
-    fontWeight: 'bold',
-    color: '#374151',
-    marginTop: 5,
-    textTransform: 'uppercase',
-    letterSpacing: 1,
-    textAlign: 'center',
+    fontFamily: 'Garamond', fontWeight: 'bold', fontStyle: 'normal',
+    fontSize: 11.5, color: '#374151', marginTop: 5,
+    textTransform: 'uppercase', letterSpacing: 1, textAlign: 'center',
   },
 
-  // Fila de contacto — sin iconos SVG (usan emojis/símbolos unicode)
+  // Contacto
   contactRow: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexWrap: 'wrap',
-    marginTop: 10,
-    fontSize: 9.5,
-    color: '#4b5563',
+    flexDirection: 'row', justifyContent: 'center', alignItems: 'center',
+    flexWrap: 'wrap', marginTop: 10, fontSize: 9.5, color: '#4b5563',
   },
-  contactItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginVertical: 2,
+  contactItem: { flexDirection: 'row', alignItems: 'center', marginVertical: 1 },
+  contactSep: { marginHorizontal: 6, color: '#9ca3af', fontSize: 9.5 },
+  contactLabel: {
+    fontFamily: 'Garamond', fontStyle: 'normal', fontWeight: 'normal',
+    color: '#374151', fontSize: 9.5,
   },
-  contactIcon: {
-    fontSize: 9,
-    marginRight: 3,
-    color: '#4b5563',
-  },
-  contactSep: {
-    marginHorizontal: 6,
-    color: '#9ca3af',
-    fontSize: 9,
-  },
-  linkText: {
-    color: '#111827',
-    fontWeight: 'bold',
-    textDecoration: 'none',
-  },
-  plainText: {
-    color: '#374151',
+  contactLabelBold: {
+    fontFamily: 'Garamond', fontStyle: 'normal', fontWeight: 'bold',
+    color: '#111827', fontSize: 9.5, textDecoration: 'none',
   },
 
-  // Secciones
-  section: {
-    marginBottom: 8,
-  },
-  sectionHeader: {
-    marginBottom: 4,
-    marginTop: 8,
-    breakAfter: 'avoid',
-  },
+  // Sección
+  section: { marginBottom: 8 },
+  sectionHeader: { marginBottom: 4, marginTop: 8 },
   sectionTitle: {
-    fontFamily: 'EB Garamond',
-    fontWeight: 'bold',
-    fontSize: 13.5,
-    color: '#323232',
-    textTransform: 'uppercase',
-    letterSpacing: 0.8,
+    fontFamily: 'Garamond', fontWeight: 'bold', fontStyle: 'normal',
+    fontSize: 13.5, color: '#323232', textTransform: 'uppercase', letterSpacing: 0.8,
   },
-  sectionDivider: {
-    borderBottomWidth: 0.75,
-    borderBottomColor: '#323232',
-    marginTop: 2,
+  divider: { borderBottomWidth: 0.75, borderBottomColor: '#323232', marginTop: 2 },
+
+  // Párrafo
+  para: {
+    fontFamily: 'Garamond', fontStyle: 'normal', fontWeight: 'normal',
+    textAlign: 'justify', marginTop: 5, fontSize: 11,
   },
 
-  // Texto libre
-  paragraph: {
-    textAlign: 'justify',
-    marginTop: 5,
-    fontFamily: 'EB Garamond',
-    fontStyle: 'normal',
-  },
-
-  // Items de lista
-  listItem: {
-    marginBottom: 7,
-  },
-  listHeaderRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'flex-start',
-  },
+  // Lista
+  listItem: { marginBottom: 7 },
+  listRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start' },
   listTitle: {
-    fontFamily: 'EB Garamond',
-    fontWeight: 'bold',
-    fontSize: 11,
-    flex: 1,
+    fontFamily: 'Garamond', fontWeight: 'bold', fontStyle: 'normal',
+    fontSize: 11, flex: 1,
   },
   listDate: {
-    fontFamily: 'EB Garamond',
-    fontStyle: 'italic',
-    fontSize: 10,
-    marginLeft: 8,
+    fontFamily: 'Garamond', fontStyle: 'italic', fontWeight: 'normal',
+    fontSize: 10, marginLeft: 8,
   },
-  listSubtitle: {
-    fontFamily: 'EB Garamond',
-    fontWeight: 'bold',
-    fontSize: 10,
-    color: '#374151',
-    marginTop: 1,
+  listCompany: {
+    fontFamily: 'Garamond', fontWeight: 'bold', fontStyle: 'normal',
+    fontSize: 10, color: '#374151', marginTop: 1,
   },
-  listTechRow: {
-    fontFamily: 'EB Garamond',
-    fontSize: 10,
-    color: '#374151',
-    marginTop: 1,
+  listTech: {
+    fontFamily: 'Garamond', fontStyle: 'normal', fontWeight: 'normal',
+    fontSize: 10, color: '#374151', marginTop: 1,
   },
 
   // Viñetas
-  bulletList: {
-    marginTop: 3,
-    marginLeft: 10,
-  },
-  bulletRow: {
-    flexDirection: 'row',
-    marginBottom: 2,
-  },
+  bullets: { marginTop: 3, marginLeft: 10 },
+  bulletRow: { flexDirection: 'row', marginBottom: 2 },
   bulletDot: {
-    width: 10,
-    fontFamily: 'EB Garamond',
-    fontSize: 11,
+    fontFamily: 'Garamond', fontStyle: 'normal', fontWeight: 'normal',
+    width: 10, fontSize: 11,
   },
   bulletText: {
-    flex: 1,
-    textAlign: 'justify',
-    fontFamily: 'EB Garamond',
+    fontFamily: 'Garamond', fontStyle: 'normal', fontWeight: 'normal',
+    flex: 1, textAlign: 'justify', fontSize: 11,
   },
 
   // Educación
-  educationItem: {
-    marginBottom: 7,
-  },
-  eduInstitution: {
-    fontFamily: 'EB Garamond',
-    fontWeight: 'bold',
-    fontSize: 11,
-    flex: 1,
+  eduItem: { marginBottom: 7 },
+  eduInst: {
+    fontFamily: 'Garamond', fontWeight: 'bold', fontStyle: 'normal',
+    fontSize: 11, flex: 1,
   },
   eduDate: {
-    fontFamily: 'EB Garamond',
-    fontStyle: 'italic',
-    fontSize: 10,
-    marginLeft: 8,
+    fontFamily: 'Garamond', fontStyle: 'italic', fontWeight: 'normal',
+    fontSize: 10, marginLeft: 8,
   },
   eduDegree: {
-    fontFamily: 'EB Garamond',
-    fontSize: 10.5,
-    marginTop: 1,
+    fontFamily: 'Garamond', fontStyle: 'normal', fontWeight: 'normal',
+    fontSize: 10.5, marginTop: 1,
   },
   eduStatus: {
-    fontFamily: 'EB Garamond',
-    fontStyle: 'italic',
-    fontSize: 9.5,
-    color: '#4b5563',
-    marginTop: 1,
+    fontFamily: 'Garamond', fontStyle: 'italic', fontWeight: 'normal',
+    fontSize: 9.5, color: '#4b5563', marginTop: 1,
   },
 
   // Skills
-  skillsGroupTitle: {
-    fontFamily: 'EB Garamond',
-    fontWeight: 'bold',
-    fontSize: 11,
-    marginBottom: 2,
-    marginTop: 3,
+  skillsTitle: {
+    fontFamily: 'Garamond', fontWeight: 'bold', fontStyle: 'normal',
+    fontSize: 11, marginBottom: 2, marginTop: 3,
   },
-  skillsFlexRow: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    marginLeft: 10,
+  skillsRow: { flexDirection: 'row', flexWrap: 'wrap', marginLeft: 10 },
+  skillItem: { flexDirection: 'row', marginRight: 14, marginBottom: 2 },
+  skillCat: {
+    fontFamily: 'Garamond', fontWeight: 'bold', fontStyle: 'normal', fontSize: 10,
   },
-  skillItem: {
-    flexDirection: 'row',
-    marginRight: 14,
-    marginBottom: 2,
-  },
-  skillCategory: {
-    fontFamily: 'EB Garamond',
-    fontWeight: 'bold',
-    fontSize: 10,
-  },
-  skillValue: {
-    fontFamily: 'EB Garamond',
-    fontSize: 10,
+  skillVal: {
+    fontFamily: 'Garamond', fontStyle: 'normal', fontWeight: 'normal', fontSize: 10,
   },
   bold: {
-    fontWeight: 'bold',
+    fontFamily: 'Garamond', fontWeight: 'bold', fontStyle: 'normal',
   },
 });
 
-// ── Componente principal ─────────────────────────────────────────────────────
+// ── Iconos SVG (paths extraídos de lucide-react, colores fijos sin currentColor) ──
+const IC = '#6b7280'; // color gris fijo para todos los iconos
+
+const IconMapPin = () => (
+  <Svg width={10} height={10} viewBox="0 0 24 24" fill="none" stroke={IC} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <Path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
+    <Circle cx="12" cy="10" r="3" />
+  </Svg>
+);
+const IconPhone = () => (
+  <Svg width={10} height={10} viewBox="0 0 24 24" fill="none" stroke={IC} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <Path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.11 15a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 2.82 4h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+  </Svg>
+);
+const IconMail = () => (
+  <Svg width={10} height={10} viewBox="0 0 24 24" fill="none" stroke={IC} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <Rect x="2" y="4" width="20" height="16" rx="2" />
+    <Path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+  </Svg>
+);
+const IconLinkedin = () => (
+  <Svg width={10} height={10} viewBox="0 0 24 24" fill="none" stroke={IC} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <Path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+    <Rect x="2" y="9" width="4" height="12" />
+    <Circle cx="4" cy="4" r="2" />
+  </Svg>
+);
+const IconGithub = () => (
+  <Svg width={10} height={10} viewBox="0 0 24 24" fill="none" stroke={IC} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <Path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
+    <Path d="M9 18c-4.51 2-5-2-7-2" />
+  </Svg>
+);
+const IconGlobe = () => (
+  <Svg width={10} height={10} viewBox="0 0 24 24" fill="none" stroke={IC} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <Circle cx="12" cy="12" r="10" />
+    <Path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+    <Path d="M2 12h20" />
+  </Svg>
+);
+const IconLink = () => (
+  <Svg width={10} height={10} viewBox="0 0 24 24" fill="none" stroke={IC} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <Path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+    <Path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+  </Svg>
+);
+const IconFileText = () => (
+  <Svg width={10} height={10} viewBox="0 0 24 24" fill="none" stroke={IC} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <Path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" />
+    <Path d="M14 2v4a2 2 0 0 0 2 2h4" />
+    <Path d="M10 9H8" />
+    <Path d="M16 13H8" />
+    <Path d="M16 17H8" />
+  </Svg>
+);
+
+const renderIcon = (name) => {
+  const map = {
+    MapPin: <IconMapPin />, Phone: <IconPhone />, Mail: <IconMail />,
+    Linkedin: <IconLinkedin />, Github: <IconGithub />, Globe: <IconGlobe />,
+    Link: <IconLink />, FileText: <IconFileText />,
+  };
+  return map[name] || <IconLink />;
+};
+
+// ── Documento PDF ──────────────────────────────────────────────────────────
 export const CVPdf = ({ data, sectionOrder }) => {
   const { personalInfo, sections, contactItems } = data;
   const getSection = (id) => sections.find((s) => s.id === id);
 
   return (
     <Document>
-      <Page size="A4" style={styles.page}>
+      <Page size="A4" style={S.page}>
 
-        {/* ── Encabezado ── */}
-        <View style={styles.header}>
-          <Text style={styles.name}>{personalInfo.name || 'TU NOMBRE COMPLETO'}</Text>
-          {personalInfo.title ? (
-            <Text style={styles.jobTitle}>{personalInfo.title}</Text>
-          ) : null}
+        {/* Encabezado */}
+        <View style={S.header}>
+          <Text style={S.name}>{personalInfo.name || 'TU NOMBRE'}</Text>
+          {personalInfo.title ? <Text style={S.jobTitle}>{personalInfo.title}</Text> : null}
 
-          {/* Fila de contacto — solo texto, sin iconos para máxima compatibilidad */}
-          <View style={styles.contactRow}>
+          <View style={S.contactRow}>
             {(contactItems || []).map((item, idx) => {
               if (!item.label) return null;
               return (
                 <View key={item.id} style={{ flexDirection: 'row', alignItems: 'center' }}>
-                  {idx > 0 ? <Text style={styles.contactSep}>|</Text> : null}
-                  {item.url ? (
-                    <Link src={item.url} style={{ textDecoration: 'none' }}>
-                      <Text style={styles.linkText}>{item.label}</Text>
-                    </Link>
-                  ) : (
-                    <Text style={styles.plainText}>{item.label}</Text>
-                  )}
+                  {idx > 0 ? <Text style={S.contactSep}>|</Text> : null}
+                  <View style={S.contactItem}>
+                    <View style={{ marginRight: 3, marginTop: 1 }}>{renderIcon(item.iconName)}</View>
+                    {item.url ? (
+                      <Link src={item.url} style={{ textDecoration: 'none' }}>
+                        <Text style={S.contactLabelBold}>{item.label}</Text>
+                      </Link>
+                    ) : (
+                      <Text style={S.contactLabel}>{item.label}</Text>
+                    )}
+                  </View>
                 </View>
               );
             })}
           </View>
         </View>
 
-        {/* ── Secciones dinámicas ── */}
+        {/* Secciones */}
         {sectionOrder.map((sectionId) => {
           const section = getSection(sectionId);
           if (!section || !section.visible) return null;
-
           return (
-            <View key={section.id} style={styles.section}>
-              <View style={styles.sectionHeader}>
-                <Text style={styles.sectionTitle}>{section.title}</Text>
-                <View style={styles.sectionDivider} />
+            <View key={section.id} style={S.section}>
+              <View style={S.sectionHeader}>
+                <Text style={S.sectionTitle}>{section.title}</Text>
+                <View style={S.divider} />
               </View>
 
               {/* Texto libre */}
               {section.type === 'text' ? (
-                <Text style={styles.paragraph}>{section.content || ''}</Text>
+                <Text style={S.para}>{section.content || ''}</Text>
               ) : null}
 
-              {/* Lista (experiencia, proyectos) */}
+              {/* Lista */}
               {section.type === 'list' ? (
                 <View style={{ marginTop: 4 }}>
                   {(section.items || []).map((item, idx) => (
-                    <View key={idx} style={styles.listItem}>
-                      <View style={styles.listHeaderRow}>
-                        <Text style={styles.listTitle}>{item.role || item.title || ''}</Text>
-                        <Text style={styles.listDate}>{item.date || ''}</Text>
+                    <View key={idx} style={S.listItem}>
+                      <View style={S.listRow}>
+                        <Text style={S.listTitle}>{item.role || item.title || ''}</Text>
+                        <Text style={S.listDate}>{item.date || ''}</Text>
                       </View>
-                      {item.company ? (
-                        <Text style={styles.listSubtitle}>{item.company}</Text>
-                      ) : null}
+                      {item.company ? <Text style={S.listCompany}>{item.company}</Text> : null}
                       {item.technologies ? (
-                        <Text style={styles.listTechRow}>
-                          <Text style={styles.bold}>Tecnologías: </Text>
-                          {item.technologies}
+                        <Text style={S.listTech}>
+                          <Text style={S.bold}>Tecnologías: </Text>{item.technologies}
                         </Text>
                       ) : null}
                       {item.bullets && item.bullets.length > 0 ? (
-                        <View style={styles.bulletList}>
-                          {item.bullets.map((bullet, bIdx) => (
-                            <View key={bIdx} style={styles.bulletRow}>
-                              <Text style={styles.bulletDot}>•</Text>
-                              <Text style={styles.bulletText}>{bullet}</Text>
+                        <View style={S.bullets}>
+                          {item.bullets.map((b, bi) => (
+                            <View key={bi} style={S.bulletRow}>
+                              <Text style={S.bulletDot}>•</Text>
+                              <Text style={S.bulletText}>{b}</Text>
                             </View>
                           ))}
                         </View>
@@ -333,15 +303,13 @@ export const CVPdf = ({ data, sectionOrder }) => {
               {section.type === 'education' ? (
                 <View style={{ marginTop: 4 }}>
                   {(section.items || []).map((item, idx) => (
-                    <View key={idx} style={styles.educationItem}>
-                      <View style={styles.listHeaderRow}>
-                        <Text style={styles.eduInstitution}>{item.institution || ''}</Text>
-                        <Text style={styles.eduDate}>{item.date || ''}</Text>
+                    <View key={idx} style={S.eduItem}>
+                      <View style={S.listRow}>
+                        <Text style={S.eduInst}>{item.institution || ''}</Text>
+                        <Text style={S.eduDate}>{item.date || ''}</Text>
                       </View>
-                      <Text style={styles.eduDegree}>{item.degree || ''}</Text>
-                      {item.status ? (
-                        <Text style={styles.eduStatus}>Estado: {item.status}</Text>
-                      ) : null}
+                      <Text style={S.eduDegree}>{item.degree || ''}</Text>
+                      {item.status ? <Text style={S.eduStatus}>Estado: {item.status}</Text> : null}
                     </View>
                   ))}
                 </View>
@@ -352,42 +320,39 @@ export const CVPdf = ({ data, sectionOrder }) => {
                 <View style={{ marginTop: 4 }}>
                   {section.skillsList && section.skillsList.length > 0 ? (
                     <View style={{ marginBottom: 4 }}>
-                      <Text style={styles.skillsGroupTitle}>Habilidades Técnicas:</Text>
-                      <View style={styles.skillsFlexRow}>
-                        {section.skillsList.map((skill, idx) => (
-                          <View key={idx} style={styles.skillItem}>
-                            <Text style={styles.skillCategory}>• {skill.category}: </Text>
-                            <Text style={styles.skillValue}>{skill.items}</Text>
+                      <Text style={S.skillsTitle}>Habilidades Técnicas:</Text>
+                      <View style={S.skillsRow}>
+                        {section.skillsList.map((sk, i) => (
+                          <View key={i} style={S.skillItem}>
+                            <Text style={S.skillCat}>• {sk.category}: </Text>
+                            <Text style={S.skillVal}>{sk.items}</Text>
                           </View>
                         ))}
                       </View>
                     </View>
                   ) : null}
-
                   {section.languages && section.languages.length > 0 ? (
                     <View style={{ marginBottom: 4 }}>
-                      <Text style={styles.skillsGroupTitle}>Idiomas:</Text>
-                      <View style={styles.skillsFlexRow}>
-                        {section.languages.map((lang, idx) => (
-                          <View key={idx} style={styles.skillItem}>
-                            <Text style={styles.skillCategory}>• {lang.language}: </Text>
-                            <Text style={styles.skillValue}>{lang.level}</Text>
+                      <Text style={S.skillsTitle}>Idiomas:</Text>
+                      <View style={S.skillsRow}>
+                        {section.languages.map((l, i) => (
+                          <View key={i} style={S.skillItem}>
+                            <Text style={S.skillCat}>• {l.language}: </Text>
+                            <Text style={S.skillVal}>{l.level}</Text>
                           </View>
                         ))}
                       </View>
                     </View>
                   ) : null}
-
                   {section.volunteering && section.volunteering.length > 0 ? (
                     <View>
-                      <Text style={styles.skillsGroupTitle}>Voluntariado:</Text>
-                      <View style={styles.bulletList}>
-                        {section.volunteering.map((vol, idx) => (
-                          <View key={idx} style={styles.bulletRow}>
-                            <Text style={styles.bulletDot}>•</Text>
-                            <Text style={styles.bulletText}>
-                              <Text style={styles.bold}>{vol.role}: </Text>
-                              {vol.description}
+                      <Text style={S.skillsTitle}>Voluntariado:</Text>
+                      <View style={S.bullets}>
+                        {section.volunteering.map((v, i) => (
+                          <View key={i} style={S.bulletRow}>
+                            <Text style={S.bulletDot}>•</Text>
+                            <Text style={S.bulletText}>
+                              <Text style={S.bold}>{v.role}: </Text>{v.description}
                             </Text>
                           </View>
                         ))}
