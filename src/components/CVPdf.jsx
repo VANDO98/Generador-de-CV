@@ -316,7 +316,7 @@ export const CVPdf = ({ data, sectionOrder }) => {
               {section.type === 'list' ? (
                 <View style={{ marginTop: 4 }}>
                   {(section.items || []).map((item, idx) => (
-                    <View key={idx} style={styles.listItem} wrap={false}>
+                    <View key={idx} style={styles.listItem}>
                       <View style={styles.listHeaderRow}>
                         <Text style={styles.listTitle}>{item.role || item.title || ''}</Text>
                         <Text style={styles.listDate}>{item.date || ''}</Text>
@@ -349,7 +349,7 @@ export const CVPdf = ({ data, sectionOrder }) => {
               {section.type === 'education' ? (
                 <View style={{ marginTop: 4 }}>
                   {(section.items || []).map((item, idx) => (
-                    <View key={idx} style={styles.educationItem} wrap={false}>
+                    <View key={idx} style={styles.educationItem}>
                       <View style={styles.listHeaderRow}>
                         <Text style={styles.eduInstitution}>{item.institution || ''}</Text>
                         <Text style={styles.eduDate}>{item.date || ''}</Text>
