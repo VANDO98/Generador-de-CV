@@ -4,6 +4,8 @@ import {
   Save, Download, Upload, Printer, FolderOpen, PlusCircle,
   Globe, Mail, Phone, MapPin, Link, FileText, Edit2
 } from 'lucide-react';
+import { PDFDownloadLink } from '@react-pdf/renderer';
+import { CVPdf } from './CVPdf';
 
 const ICON_OPTIONS = [
   { name: 'MapPin', label: 'Ubicación / Mapa' },
@@ -201,13 +203,18 @@ export default function BuilderUI({
             />
           </label>
 
-          <button 
-            onClick={() => window.print()}
+          <PDFDownloadLink
+            document={<CVPdf data={data} sectionOrder={sectionOrder} />}
+            fileName={`CV_${data.personalInfo.name ? data.personalInfo.name.replace(/\s+/g, '_') : 'Nuevo'}.pdf`}
             className="flex items-center gap-1.5 bg-green-600 hover:bg-green-700 text-white text-xs font-semibold px-3 py-2 rounded-lg transition-colors cursor-pointer shadow-md"
           >
-            <Printer className="w-3.5 h-3.5" />
-            Imprimir / PDF
-          </button>
+            {({ loading }) => (
+              <>
+                <Printer className="w-3.5 h-3.5" />
+                {loading ? 'Generando...' : 'Descargar PDF'}
+              </>
+            )}
+          </PDFDownloadLink>
         </div>
       </div>
 
