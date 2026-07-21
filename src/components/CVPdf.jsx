@@ -91,8 +91,8 @@ const S = StyleSheet.create({
     fontSize: 11, flex: 1,
   },
   listDate: {
-    fontFamily: 'Garamond', fontStyle: 'italic', fontWeight: 'normal',
-    fontSize: 10, marginLeft: 8,
+    fontFamily: 'Garamond', fontStyle: 'normal', fontWeight: 'normal',
+    fontSize: 11, color: '#374151', marginLeft: 8,
   },
   listCompany: {
     fontFamily: 'Garamond', fontWeight: 'bold', fontStyle: 'normal',
@@ -122,16 +122,16 @@ const S = StyleSheet.create({
     fontSize: 11, flex: 1,
   },
   eduDate: {
-    fontFamily: 'Garamond', fontStyle: 'italic', fontWeight: 'normal',
-    fontSize: 10, marginLeft: 8,
+    fontFamily: 'Garamond', fontStyle: 'normal', fontWeight: 'normal',
+    fontSize: 11, color: '#374151', marginLeft: 8,
   },
   eduDegree: {
     fontFamily: 'Garamond', fontStyle: 'normal', fontWeight: 'normal',
     fontSize: 10.5, marginTop: 1,
   },
   eduStatus: {
-    fontFamily: 'Garamond', fontStyle: 'italic', fontWeight: 'normal',
-    fontSize: 9.5, color: '#4b5563', marginTop: 1,
+    fontFamily: 'Garamond', fontStyle: 'normal', fontWeight: 'normal',
+    fontSize: 11, color: '#374151', marginTop: 1,
   },
 
   // Skills

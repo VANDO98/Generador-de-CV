@@ -99,7 +99,7 @@ export default function CVPreview({ data, sectionOrder }) {
                       <div key={idx} className="text-gray-800 latex-item">
                         <div className="flex justify-between items-baseline font-bold">
                           <span>{item.role || item.title}</span>
-                          <span className="text-xs font-normal italic">{item.date}</span>
+                          <span className="text-sm font-medium text-gray-700">{item.date}</span>
                         </div>
                         {/* Show secondary header depending on item keys */}
                         {item.company && (
@@ -132,10 +132,10 @@ export default function CVPreview({ data, sectionOrder }) {
                       <div key={idx} className="text-gray-800 latex-item">
                         <div className="flex justify-between items-baseline">
                           <span className="font-bold">{item.institution}</span>
-                          <span className="text-xs italic">{item.date}</span>
+                          <span className="text-sm font-medium text-gray-700">{item.date}</span>
                         </div>
                         <div className="text-xs">{item.degree}</div>
-                        {item.status && <div className="text-xs italic text-gray-600">Estado: {item.status}</div>}
+                        {item.status && <div className="text-sm text-gray-700">Estado: {item.status}</div>}
                       </div>
                     ))}
                   </div>
