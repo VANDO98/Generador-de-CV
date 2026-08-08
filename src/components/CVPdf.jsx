@@ -25,17 +25,33 @@ Font.register({
   ],
 });
 
+Font.register({
+  family: 'Inter',
+  fonts: [
+    {
+      src: `${window.location.origin}${import.meta.env.BASE_URL}fonts/Inter-Regular.ttf`,
+      fontWeight: 'normal',
+      fontStyle: 'normal',
+    },
+    {
+      src: `${window.location.origin}${import.meta.env.BASE_URL}fonts/Inter-SemiBold.ttf`,
+      fontWeight: 600,
+      fontStyle: 'normal',
+    },
+  ],
+});
+
 // ── Estilos ────────────────────────────────────────────────────────────────
 const S = StyleSheet.create({
   page: {
-    paddingTop: '25mm',
-    paddingBottom: '25mm',
+    paddingTop: '20mm',
+    paddingBottom: '20mm',
     paddingLeft: '25mm',
     paddingRight: '25mm',
     fontFamily: 'Garamond',
     fontStyle: 'normal',
     fontWeight: 'normal',
-    fontSize: 11,
+    fontSize: 10.5,
     color: '#2b2b2b',
     lineHeight: 1.4,
   },
@@ -44,28 +60,28 @@ const S = StyleSheet.create({
   header: { marginBottom: 16, alignItems: 'center' },
   name: {
     fontFamily: 'Garamond', fontWeight: 'bold', fontStyle: 'normal',
-    fontSize: 22, color: '#1f2937', textTransform: 'uppercase', letterSpacing: 2, textAlign: 'center',
+    fontSize: 18, color: '#1f2937', textTransform: 'uppercase', letterSpacing: 2, textAlign: 'center',
   },
   jobTitle: {
     fontFamily: 'Garamond', fontWeight: 'bold', fontStyle: 'normal',
-    fontSize: 11.5, color: '#374151', marginTop: 12,
-    textTransform: 'uppercase', letterSpacing: 1, textAlign: 'center',
+    fontSize: 12, color: '#374151', marginTop: 4,
+    textTransform: 'uppercase', letterSpacing: 0.5, textAlign: 'center',
   },
 
-  // Contacto
+  // Contacto — usa Inter (font-sans) igual que el HTML
   contactRow: {
     flexDirection: 'row', justifyContent: 'center', alignItems: 'center',
-    flexWrap: 'wrap', marginTop: 10, fontSize: 9.5, color: '#4b5563',
+    flexWrap: 'wrap', marginTop: 8, fontSize: 9, color: '#4b5563',
   },
-  contactItem: { flexDirection: 'row', alignItems: 'center', marginVertical: 1 },
-  contactSep: { marginHorizontal: 6, color: '#9ca3af', fontSize: 9.5 },
+  contactItem: { flexDirection: 'row', alignItems: 'center', marginVertical: 1.5 },
+  contactSep: { marginHorizontal: 6, color: '#9ca3af', fontSize: 9, fontFamily: 'Inter', fontStyle: 'normal', fontWeight: 'normal' },
   contactLabel: {
-    fontFamily: 'Garamond', fontStyle: 'normal', fontWeight: 'normal',
-    color: '#374151', fontSize: 9.5,
+    fontFamily: 'Inter', fontStyle: 'normal', fontWeight: 'normal',
+    color: '#4b5563', fontSize: 9,
   },
   contactLabelBold: {
-    fontFamily: 'Garamond', fontStyle: 'normal', fontWeight: 'bold',
-    color: '#111827', fontSize: 9.5, textDecoration: 'none',
+    fontFamily: 'Inter', fontStyle: 'normal', fontWeight: 600,
+    color: '#111827', fontSize: 9, textDecoration: 'none',
   },
 
   // Sección
