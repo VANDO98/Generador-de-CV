@@ -321,12 +321,11 @@ export const CVPdf = ({ data, sectionOrder }) => {
                   {section.skillsList && section.skillsList.length > 0 ? (
                     <View style={{ marginBottom: 4 }}>
                       <Text style={S.skillsTitle}>Habilidades Técnicas:</Text>
-                      <View style={S.skillsRow}>
+                      <View style={{ marginLeft: 10 }}>
                         {section.skillsList.map((sk, i) => (
-                          <View key={i} style={S.skillItem}>
-                            <Text style={S.skillCat}>• {sk.category}: </Text>
-                            <Text style={S.skillVal}>{sk.items}</Text>
-                          </View>
+                          <Text key={i} style={{ fontFamily: 'Garamond', fontStyle: 'normal', fontWeight: 'normal', fontSize: 11, marginBottom: 2 }}>
+                            <Text style={{ fontFamily: 'Garamond', fontWeight: 'bold', fontStyle: 'normal', fontSize: 11 }}>{'\u2022 '}{sk.category}{': '}</Text>{sk.items}
+                          </Text>
                         ))}
                       </View>
                     </View>
@@ -334,12 +333,11 @@ export const CVPdf = ({ data, sectionOrder }) => {
                   {section.languages && section.languages.length > 0 ? (
                     <View style={{ marginBottom: 4 }}>
                       <Text style={S.skillsTitle}>Idiomas:</Text>
-                      <View style={S.skillsRow}>
+                      <View style={{ marginLeft: 10 }}>
                         {section.languages.map((l, i) => (
-                          <View key={i} style={S.skillItem}>
-                            <Text style={S.skillCat}>• {l.language}: </Text>
-                            <Text style={S.skillVal}>{l.level}</Text>
-                          </View>
+                          <Text key={i} style={{ fontFamily: 'Garamond', fontStyle: 'normal', fontWeight: 'normal', fontSize: 11, marginBottom: 2 }}>
+                            <Text style={{ fontFamily: 'Garamond', fontWeight: 'bold', fontStyle: 'normal', fontSize: 11 }}>{'\u2022 '}{l.language}{': '}</Text>{l.level}
+                          </Text>
                         ))}
                       </View>
                     </View>
