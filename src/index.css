@@ -116,8 +116,7 @@ body {
   letter-spacing: 0.05em;
   margin-top: 0.75rem;
   margin-bottom: 0.25rem;
-  display: flex;
-  flex-direction: column;
+  display: block;
 }
 
 .latex-section-title::after {
