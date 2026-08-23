@@ -118,8 +118,6 @@ body {
   margin-bottom: 0.25rem;
   display: flex;
   flex-direction: column;
-  page-break-after: avoid; /* Evita que la sección quede huérfana al final de la página */
-  break-after: avoid;
 }
 
 .latex-section-title::after {
