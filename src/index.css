@@ -121,8 +121,8 @@ body {
 }
 
 .latex-item {
-  page-break-inside: avoid; /* Evita que un elemento de experiencia/proyecto se corte a la mitad */
-  break-inside: avoid;
+  page-break-inside: auto;
+  break-inside: auto;
 }
 
 .latex-bullet-list {
