@@ -83,11 +83,21 @@ body {
     overflow: visible !important;
   }
 
+  .cv-preview-wrapper {
+    flex: none !important;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    overflow: visible !important;
+    width: 100% !important;
+    background: transparent !important;
+  }
+
   .a4-page {
-    width: 100% !important; /* Llena el espacio printable definido por @page */
+    width: 100% !important;
     min-height: 0 !important;
     height: auto !important;
-    padding: 0 !important; /* Remueve el padding interno para evitar duplicar el margen de @page */
+    padding: 0 !important;
     margin: 0 !important;
     box-shadow: none !important;
     background: transparent !important;

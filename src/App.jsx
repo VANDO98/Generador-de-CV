@@ -241,23 +241,25 @@ export default function App() {
 
   return (
     <div className="flex flex-col lg:flex-row h-screen overflow-hidden w-full bg-gray-100">
-      {/* Panel izquierdo (Builder UI) - no-print está dentro de BuilderUI */}
-      <BuilderUI
-        data={data}
-        setData={setData}
-        sectionOrder={sectionOrder}
-        setSectionOrder={setSectionOrder}
-        profiles={profiles}
-        activeProfile={activeProfile}
-        onSaveProfile={handleSaveProfile}
-        onLoadProfile={handleLoadProfile}
-        onDeleteProfile={handleDeleteProfile}
-        onExportJSON={handleExportJSON}
-        onImportJSON={handleImportJSON}
-      />
+      {/* Panel izquierdo (Builder UI) - oculto completamente al imprimir */}
+      <div className="no-print">
+        <BuilderUI
+          data={data}
+          setData={setData}
+          sectionOrder={sectionOrder}
+          setSectionOrder={setSectionOrder}
+          profiles={profiles}
+          activeProfile={activeProfile}
+          onSaveProfile={handleSaveProfile}
+          onLoadProfile={handleLoadProfile}
+          onDeleteProfile={handleDeleteProfile}
+          onExportJSON={handleExportJSON}
+          onImportJSON={handleImportJSON}
+        />
+      </div>
 
-      {/* Panel derecho (Vista Previa) - IMPORTANTE: NO DEBE TENER no-print EN EL DIV CONTENEDOR PRINCIPAL */}
-      <div className="flex-1 h-screen overflow-auto bg-gray-200">
+      {/* Panel derecho (Vista Previa) */}
+      <div className="cv-preview-wrapper flex-1 h-screen overflow-auto bg-gray-200">
         <div className="p-4 bg-gray-300 border-b border-gray-400 text-xs font-semibold text-gray-600 flex justify-between items-center no-print">
           <span>Vista Previa del CV (Imitación de Página A4)</span>
           <span className="text-gray-500 italic">Usa el botón verde "Imprimir / PDF" para descargar el PDF</span>
