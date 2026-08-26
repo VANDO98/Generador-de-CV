@@ -57,6 +57,16 @@ body {
     display: none !important;
   }
 
+  /* Reset universal agresivo para saltos de página en TODOS los elementos */
+  * {
+    page-break-inside: auto !important;
+    break-inside: auto !important;
+    page-break-before: auto !important;
+    break-before: auto !important;
+    page-break-after: auto !important;
+    break-after: auto !important;
+  }
+
   /* Resetear todos los contenedores padres para que fluyan de manera natural */
   html, body, #root, 
   #root > div, 
