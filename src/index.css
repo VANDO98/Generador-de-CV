@@ -128,8 +128,13 @@ body {
 }
 
 .latex-item {
-  page-break-inside: auto;
-  break-inside: auto;
+  page-break-inside: auto !important;
+  break-inside: auto !important;
+}
+
+.latex-item * {
+  page-break-inside: auto !important;
+  break-inside: auto !important;
 }
 
 .latex-bullet-list {
