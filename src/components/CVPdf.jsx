@@ -121,14 +121,9 @@ const S = StyleSheet.create({
 
   // Viñetas
   bullets: { marginTop: 3, marginLeft: 10 },
-  bulletRow: { flexDirection: 'row', marginBottom: 2 },
-  bulletDot: {
-    fontFamily: 'Garamond', fontStyle: 'normal', fontWeight: 'normal',
-    width: 10, fontSize: 11,
-  },
   bulletText: {
     fontFamily: 'Garamond', fontStyle: 'normal', fontWeight: 'normal',
-    flex: 1, textAlign: 'justify', fontSize: 11,
+    textAlign: 'justify', fontSize: 11, marginBottom: 2.5,
   },
 
   // Educación
@@ -303,10 +298,9 @@ export const CVPdf = ({ data, sectionOrder }) => {
                       {item.bullets && item.bullets.length > 0 ? (
                         <View style={S.bullets}>
                           {item.bullets.map((b, bi) => (
-                            <View key={bi} style={S.bulletRow}>
-                              <Text style={S.bulletDot}>•</Text>
-                              <Text style={S.bulletText}>{b}</Text>
-                            </View>
+                            <Text key={bi} style={S.bulletText}>
+                              {'\u2022'}  {b}
+                            </Text>
                           ))}
                         </View>
                       ) : null}
@@ -363,12 +357,9 @@ export const CVPdf = ({ data, sectionOrder }) => {
                       <Text style={S.skillsTitle}>Voluntariado:</Text>
                       <View style={S.bullets}>
                         {section.volunteering.map((v, i) => (
-                          <View key={i} style={S.bulletRow}>
-                            <Text style={S.bulletDot}>•</Text>
-                            <Text style={S.bulletText}>
-                              <Text style={S.bold}>{v.role}: </Text>{v.description}
-                            </Text>
-                          </View>
+                          <Text key={i} style={S.bulletText}>
+                            {'\u2022'}  <Text style={S.bold}>{v.role}: </Text>{v.description}
+                          </Text>
                         ))}
                       </View>
                     </View>
