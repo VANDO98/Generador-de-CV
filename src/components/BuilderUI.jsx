@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { 
   Eye, EyeOff, ArrowUp, ArrowDown, Plus, Trash2, 
   Save, Download, Upload, Printer, FolderOpen, PlusCircle,
-  Globe, Mail, Phone, MapPin, Link, FileText, Edit2
+  Globe, Mail, Phone, MapPin, Link, FileText, Edit2, GripVertical
 } from 'lucide-react';
 import { PDFDownloadLink, usePDF } from '@react-pdf/renderer';
 import { CVPdf } from './CVPdf';
@@ -61,6 +61,9 @@ export default function BuilderUI({
   const [showAddSection, setShowAddSection] = useState(false);
   const [newSectionTitle, setNewSectionTitle] = useState('');
   const [newSectionType, setNewSectionType] = useState('text'); // 'text' | 'list'
+
+  // State for drag and drop reordering of bullets
+  const [draggedBullet, setDraggedBullet] = useState(null);
 
   const { personalInfo, sections, contactItems = [] } = data;
 
@@ -475,7 +478,37 @@ export default function BuilderUI({
                             <div className="space-y-1.5 pt-1">
                               <label className="block text-[9px] font-bold text-gray-400">Viñetas descriptivas</label>
                               {item.bullets && item.bullets.map((bullet, bIdx) => (
-                                <div key={bIdx} className="flex gap-1.5 items-center">
+                                <div 
+                                  key={bIdx} 
+                                  className={`flex gap-1.5 items-center transition-opacity ${draggedBullet?.sectionId === section.id && draggedBullet?.itemIdx === idx && draggedBullet?.bulletIdx === bIdx ? 'opacity-30' : ''}`}
+                                  draggable
+                                  onDragStart={(e) => {
+                                    setDraggedBullet({ type: 'bullet', sectionId: section.id, itemIdx: idx, bulletIdx: bIdx });
+                                    e.dataTransfer.effectAllowed = 'move';
+                                  }}
+                                  onDragOver={(e) => {
+                                    e.preventDefault();
+                                    e.dataTransfer.dropEffect = 'move';
+                                  }}
+                                  onDrop={(e) => {
+                                    e.preventDefault();
+                                    if (!draggedBullet || draggedBullet.type !== 'bullet' || draggedBullet.sectionId !== section.id || draggedBullet.itemIdx !== idx) return;
+                                    const sourceIdx = draggedBullet.bulletIdx;
+                                    if (sourceIdx === bIdx) return;
+                                    
+                                    const items = [...section.items];
+                                    const newBullets = [...items[idx].bullets];
+                                    const [moved] = newBullets.splice(sourceIdx, 1);
+                                    newBullets.splice(bIdx, 0, moved);
+                                    items[idx].bullets = newBullets;
+                                    updateSectionItems(section.id, items);
+                                    setDraggedBullet(null);
+                                  }}
+                                  onDragEnd={() => setDraggedBullet(null)}
+                                >
+                                  <div className="cursor-move text-gray-300 hover:text-gray-500 py-1" title="Arrastra para reordenar">
+                                    <GripVertical className="w-3.5 h-3.5" />
+                                  </div>
                                   <textarea 
                                     value={bullet} 
                                     onChange={(e) => {
@@ -483,7 +516,7 @@ export default function BuilderUI({
                                       items[idx].bullets[bIdx] = e.target.value;
                                       updateSectionItems(section.id, items);
                                     }}
-                                    className="flex-1 text-[11px] px-2 py-1 border border-gray-200 rounded-md bg-white resize-y"
+                                    className="flex-1 text-[11px] px-2 py-1.5 border border-gray-200 rounded-md bg-white resize-y"
                                     rows={2}
                                   />
                                   <button 
