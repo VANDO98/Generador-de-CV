@@ -223,20 +223,24 @@ export default function App() {
   const handleImportJSON = (file) => {
     const reader = new FileReader();
     reader.onload = (e) => {
-      try {
-        const parsed = JSON.parse(e.target.result);
-        if (parsed.data && parsed.sectionOrder) {
-          setData(parsed.data);
-          setSectionOrder(parsed.sectionOrder);
-          alert('Respaldo cargado correctamente.');
-        } else {
-          alert('El archivo JSON no tiene el formato correcto.');
-        }
-      } catch (error) {
-        alert('Error al leer el archivo JSON.');
-      }
+      handleImportJSONString(e.target.result);
     };
     reader.readAsText(file);
+  };
+
+  const handleImportJSONString = (jsonString) => {
+    try {
+      const parsed = JSON.parse(jsonString);
+      if (parsed.data && parsed.sectionOrder) {
+        setData(parsed.data);
+        setSectionOrder(parsed.sectionOrder);
+        alert('Respaldo cargado correctamente.');
+      } else {
+        alert('El archivo JSON no tiene el formato correcto.');
+      }
+    } catch (error) {
+      alert('Error al parsear el JSON. Asegúrate de haberlo pegado completo y sin errores.');
+    }
   };
 
   return (
@@ -255,6 +259,7 @@ export default function App() {
           onDeleteProfile={handleDeleteProfile}
           onExportJSON={handleExportJSON}
           onImportJSON={handleImportJSON}
+          onImportJSONString={handleImportJSONString}
         />
       </div>
 

@@ -29,7 +29,8 @@ export default function BuilderUI({
   onLoadProfile,
   onDeleteProfile,
   onExportJSON,
-  onImportJSON
+  onImportJSON,
+  onImportJSONString
 }) {
   const [newProfileName, setNewProfileName] = useState('');
   const [activeTab, setActiveTab] = useState('data'); // 'data' | 'structure' | 'versions'
@@ -990,7 +991,7 @@ export default function BuilderUI({
             </div>
 
             {/* Importar y Exportar Archivos de Respaldo */}
-            <div className="pt-4 border-t border-gray-200 space-y-3">
+            <div className="pt-4 border-t border-gray-200 space-y-3 pb-6">
               <h4 className="text-xs font-bold text-gray-500 uppercase px-1">Importar / Exportar Datos en JSON</h4>
               
               <div className="grid grid-cols-2 gap-3">
@@ -1008,7 +1009,7 @@ export default function BuilderUI({
                   className="flex items-center justify-center gap-1.5 border border-gray-300 hover:border-gray-400 bg-white hover:bg-gray-50 text-gray-700 text-xs font-bold py-2.5 rounded-lg cursor-pointer transition-colors text-center"
                 >
                   <Upload className="w-3.5 h-3.5 text-purple-600" />
-                  Subir Respaldo
+                  Subir Archivo
                   <input 
                     type="file" 
                     accept=".json" 
@@ -1016,6 +1017,30 @@ export default function BuilderUI({
                     className="hidden" 
                   />
                 </label>
+              </div>
+
+              {/* Pegar JSON directamente */}
+              <div className="mt-4 p-3 bg-gray-50 border border-gray-200 rounded-lg space-y-2">
+                <label className="text-xs font-bold text-gray-700 flex items-center gap-1">
+                  O pegar código JSON directamente:
+                </label>
+                <textarea 
+                  className="w-full text-[10px] font-mono border border-gray-300 rounded p-2 h-24 bg-white" 
+                  placeholder='{"data": {...}, "sectionOrder": [...]}'
+                  id="json-paste-area"
+                ></textarea>
+                <button
+                  onClick={() => {
+                    const el = document.getElementById('json-paste-area');
+                    if (el && el.value.trim()) {
+                      onImportJSONString(el.value);
+                      el.value = '';
+                    }
+                  }}
+                  className="w-full bg-gray-800 hover:bg-gray-900 text-white text-xs font-bold py-2 rounded-lg cursor-pointer transition-colors"
+                >
+                  Cargar desde el texto
+                </button>
               </div>
             </div>
           </div>
