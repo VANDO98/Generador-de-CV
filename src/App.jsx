@@ -6,7 +6,9 @@ import CVPreview from './components/CVPreview';
 const initialCVData = {
   personalInfo: {
     name: 'JUAN PÉREZ GÓMEZ',
-    title: 'INGENIERO DE SOFTWARE / ANALISTA DE DATOS'
+    title: 'INGENIERO DE SOFTWARE / ANALISTA DE DATOS',
+    photo: '',
+    showPhoto: false
   },
   contactItems: [
     { id: '1', type: 'address', label: 'Caracas, Venezuela', url: '', iconName: 'MapPin' },

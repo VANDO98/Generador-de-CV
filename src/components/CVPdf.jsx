@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Page, Text, View, Document, StyleSheet, Font, Link, Svg, Path, Rect, Circle
+  Page, Text, View, Document, StyleSheet, Font, Link, Svg, Path, Rect, Circle, Image
 } from '@react-pdf/renderer';
 
 // ── Fuentes locales (sin CORS, servidas desde el mismo origen) ─────────────
@@ -56,7 +56,7 @@ const S = StyleSheet.create({
     lineHeight: 1.4,
   },
 
-  // Header
+  // Header Clásico Centrado
   header: { marginBottom: 16, alignItems: 'center' },
   name: {
     fontFamily: 'Garamond', fontWeight: 'bold', fontStyle: 'normal',
@@ -66,6 +66,39 @@ const S = StyleSheet.create({
     fontFamily: 'Garamond', fontWeight: 'bold', fontStyle: 'normal',
     fontSize: 12, color: '#374151', marginTop: 4,
     textTransform: 'uppercase', letterSpacing: 0.5, textAlign: 'center',
+  },
+
+  // Header Con Foto (Estilo Harvard Moderno)
+  headerWithPhoto: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 16,
+    paddingBottom: 10,
+    borderBottomWidth: 0.5,
+    borderBottomColor: '#d1d5db',
+  },
+  photo: {
+    width: 65,
+    height: 65,
+    borderRadius: 6,
+    objectFit: 'cover',
+    marginRight: 14,
+  },
+  headerTextLeft: {
+    flex: 1,
+  },
+  nameLeft: {
+    fontFamily: 'Garamond', fontWeight: 'bold', fontStyle: 'normal',
+    fontSize: 17, color: '#1f2937', textTransform: 'uppercase', letterSpacing: 1.5,
+  },
+  jobTitleLeft: {
+    fontFamily: 'Garamond', fontWeight: 'bold', fontStyle: 'normal',
+    fontSize: 11, color: '#374151', marginTop: 2,
+    textTransform: 'uppercase', letterSpacing: 0.5,
+  },
+  contactRowLeft: {
+    flexDirection: 'row', alignItems: 'center',
+    flexWrap: 'wrap', marginTop: 6, fontSize: 8.5, color: '#4b5563',
   },
 
   // Contacto — usa Inter (font-sans) igual que el HTML
@@ -238,31 +271,64 @@ export const CVPdf = ({ data, sectionOrder }) => {
       <Page size="A4" style={S.page}>
 
         {/* Encabezado */}
-        <View style={S.header}>
-          <Text style={S.name}>{personalInfo.name || 'TU NOMBRE'}</Text>
-          {personalInfo.title ? <Text style={S.jobTitle}>{personalInfo.title}</Text> : null}
-
-          <View style={S.contactRow}>
-            {(contactItems || []).map((item, idx) => {
-              if (!item.label) return null;
-              return (
-                <View key={item.id} style={{ flexDirection: 'row', alignItems: 'center' }}>
-                  {idx > 0 ? <Text style={S.contactSep}>|</Text> : null}
-                  <View style={S.contactItem}>
-                    <View style={{ marginRight: 3, marginTop: 1 }}>{renderIcon(item.iconName)}</View>
-                    {item.url ? (
-                      <Link src={item.url} style={{ textDecoration: 'none' }}>
-                        <Text style={S.contactLabelBold}>{item.label}</Text>
-                      </Link>
-                    ) : (
-                      <Text style={S.contactLabel}>{item.label}</Text>
-                    )}
-                  </View>
-                </View>
-              );
-            })}
+        {personalInfo.showPhoto && personalInfo.photo ? (
+          /* Encabezado Con Foto */
+          <View style={S.headerWithPhoto}>
+            <Image src={personalInfo.photo} style={S.photo} />
+            <View style={S.headerTextLeft}>
+              <Text style={S.nameLeft}>{personalInfo.name || 'TU NOMBRE'}</Text>
+              {personalInfo.title ? <Text style={S.jobTitleLeft}>{personalInfo.title}</Text> : null}
+              
+              <View style={S.contactRowLeft}>
+                {(contactItems || []).map((item, idx) => {
+                  if (!item.label) return null;
+                  return (
+                    <View key={item.id} style={{ flexDirection: 'row', alignItems: 'center' }}>
+                      {idx > 0 ? <Text style={S.contactSep}>|</Text> : null}
+                      <View style={S.contactItem}>
+                        <View style={{ marginRight: 3, marginTop: 1 }}>{renderIcon(item.iconName)}</View>
+                        {item.url ? (
+                          <Link src={item.url} style={{ textDecoration: 'none' }}>
+                            <Text style={S.contactLabelBold}>{item.label}</Text>
+                          </Link>
+                        ) : (
+                          <Text style={S.contactLabel}>{item.label}</Text>
+                        )}
+                      </View>
+                    </View>
+                  );
+                })}
+              </View>
+            </View>
           </View>
-        </View>
+        ) : (
+          /* Encabezado Clásico Centrado */
+          <View style={S.header}>
+            <Text style={S.name}>{personalInfo.name || 'TU NOMBRE'}</Text>
+            {personalInfo.title ? <Text style={S.jobTitle}>{personalInfo.title}</Text> : null}
+
+            <View style={S.contactRow}>
+              {(contactItems || []).map((item, idx) => {
+                if (!item.label) return null;
+                return (
+                  <View key={item.id} style={{ flexDirection: 'row', alignItems: 'center' }}>
+                    {idx > 0 ? <Text style={S.contactSep}>|</Text> : null}
+                    <View style={S.contactItem}>
+                      <View style={{ marginRight: 3, marginTop: 1 }}>{renderIcon(item.iconName)}</View>
+                      {item.url ? (
+                        <Link src={item.url} style={{ textDecoration: 'none' }}>
+                          <Text style={S.contactLabelBold}>{item.label}</Text>
+                        </Link>
+                      ) : (
+                        <Text style={S.contactLabel}>{item.label}</Text>
+                      )}
+                    </View>
+                  </View>
+                );
+              })}
+            </View>
+          </View>
+        )}
 
         {/* Secciones */}
         {sectionOrder.map((sectionId) => {

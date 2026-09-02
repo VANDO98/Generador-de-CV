@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
 import { 
   Eye, EyeOff, ArrowUp, ArrowDown, Plus, Trash2, 
   Save, Download, Upload, Printer, FolderOpen, PlusCircle,
-  Globe, Mail, Phone, MapPin, Link, FileText, Edit2, GripVertical
+  Globe, Mail, Phone, MapPin, Link, FileText, Edit2, GripVertical,
+  Camera, User, UploadCloud, X
 } from 'lucide-react';
 import { PDFDownloadLink, usePDF } from '@react-pdf/renderer';
 import { CVPdf } from './CVPdf';
@@ -68,6 +68,8 @@ export default function BuilderUI({
 
   const { personalInfo, sections, contactItems = [] } = data;
 
+  const [isPhotoDragging, setIsPhotoDragging] = useState(false);
+
   // Handler for personal info changes
   const handlePersonalChange = (field, val) => {
     setData({
@@ -75,6 +77,57 @@ export default function BuilderUI({
       personalInfo: {
         ...personalInfo,
         [field]: val
+      }
+    });
+  };
+
+  // Switch para activar/desactivar foto
+  const toggleShowPhoto = () => {
+    setData({
+      ...data,
+      personalInfo: {
+        ...personalInfo,
+        showPhoto: !personalInfo.showPhoto
+      }
+    });
+  };
+
+  // Carga de archivo de foto a Base64
+  const handlePhotoUpload = (file) => {
+    if (!file) return;
+    if (!file.type.startsWith('image/')) {
+      alert('Por favor selecciona un archivo de imagen válido (JPG, PNG, WebP).');
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      setData({
+        ...data,
+        personalInfo: {
+          ...personalInfo,
+          photo: e.target.result,
+          showPhoto: true
+        }
+      });
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const handlePhotoDrop = (e) => {
+    e.preventDefault();
+    setIsPhotoDragging(false);
+    const file = e.dataTransfer.files[0];
+    if (file) {
+      handlePhotoUpload(file);
+    }
+  };
+
+  const handleRemovePhoto = () => {
+    setData({
+      ...data,
+      personalInfo: {
+        ...personalInfo,
+        photo: ''
       }
     });
   };
@@ -285,6 +338,76 @@ export default function BuilderUI({
             <div className="bg-gray-50 p-4 rounded-xl border border-gray-100 space-y-3">
               <h3 className="font-bold text-gray-800 text-sm">Información Personal</h3>
               <div className="space-y-3">
+                {/* Foto de Perfil (si está activa) */}
+                {personalInfo.showPhoto && (
+                  <div className="p-3 bg-white border border-gray-200 rounded-lg space-y-2">
+                    <div className="flex items-center justify-between">
+                      <label className="text-xs font-bold text-gray-700 flex items-center gap-1.5">
+                        <Camera className="w-3.5 h-3.5 text-purple-600" /> Fotografía de Perfil
+                      </label>
+                      <button 
+                        type="button" 
+                        onClick={toggleShowPhoto}
+                        className="text-[10px] text-gray-500 hover:text-red-500 underline cursor-pointer"
+                      >
+                        Ocultar foto
+                      </button>
+                    </div>
+
+                    {personalInfo.photo ? (
+                      <div className="flex items-center gap-3">
+                        <img 
+                          src={personalInfo.photo} 
+                          alt="Foto" 
+                          className="w-12 h-12 rounded-lg object-cover border border-purple-200"
+                        />
+                        <div className="flex gap-2">
+                          <label className="text-xs text-purple-600 font-bold hover:underline cursor-pointer">
+                            Cambiar
+                            <input 
+                              type="file" 
+                              accept="image/*" 
+                              onChange={(e) => handlePhotoUpload(e.target.files[0])}
+                              className="hidden" 
+                            />
+                          </label>
+                          <span className="text-gray-300">|</span>
+                          <button 
+                            type="button" 
+                            onClick={handleRemovePhoto} 
+                            className="text-xs text-red-500 font-bold hover:underline cursor-pointer"
+                          >
+                            Eliminar
+                          </button>
+                        </div>
+                      </div>
+                    ) : (
+                      <div 
+                        onDragOver={(e) => {
+                          e.preventDefault();
+                          setIsPhotoDragging(true);
+                        }}
+                        onDragLeave={() => setIsPhotoDragging(false)}
+                        onDrop={handlePhotoDrop}
+                        className={`border border-dashed rounded-lg p-3 text-center transition-all ${
+                          isPhotoDragging ? 'border-purple-600 bg-purple-50' : 'border-gray-300 bg-gray-50'
+                        }`}
+                      >
+                        <p className="text-[11px] text-gray-600 font-medium">Arrastra tu foto o</p>
+                        <label className="text-xs text-purple-600 font-bold hover:underline cursor-pointer">
+                          selecciona un archivo
+                          <input 
+                            type="file" 
+                            accept="image/*" 
+                            onChange={(e) => handlePhotoUpload(e.target.files[0])}
+                            className="hidden" 
+                          />
+                        </label>
+                      </div>
+                    )}
+                  </div>
+                )}
+
                 <div>
                   <label className="block text-xs font-semibold text-gray-500 mb-1">Nombre Completo</label>
                   <input 
@@ -788,6 +911,106 @@ export default function BuilderUI({
         {activeTab === 'structure' && (
           <div className="space-y-4">
             
+            {/* INTERRUPTOR: FOTO DE PERFIL / FORMATO CON FOTO */}
+            <div className="bg-white border border-gray-200 rounded-xl p-3.5 shadow-2xs space-y-3">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2.5">
+                  <div className={`p-2 rounded-lg ${personalInfo.showPhoto ? 'bg-purple-100 text-purple-700' : 'bg-gray-100 text-gray-500'}`}>
+                    <Camera className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <h4 className="text-xs font-bold text-gray-800">Foto de Perfil</h4>
+                    <p className="text-[10px] text-gray-500">
+                      {personalInfo.showPhoto ? 'Formato con foto activado' : 'Formato tradicional Harvard (sin foto)'}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Switch Interruptor */}
+                <button
+                  type="button"
+                  onClick={toggleShowPhoto}
+                  className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-hidden ${
+                    personalInfo.showPhoto ? 'bg-purple-600' : 'bg-gray-300'
+                  }`}
+                  role="switch"
+                  aria-checked={personalInfo.showPhoto}
+                  title="Activar / Desactivar foto de perfil"
+                >
+                  <span
+                    className={`pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow-md ring-0 transition duration-200 ease-in-out ${
+                      personalInfo.showPhoto ? 'translate-x-5' : 'translate-x-0'
+                    }`}
+                  />
+                </button>
+              </div>
+
+              {/* Zona de carga y vista previa cuando el switch está activo */}
+              {personalInfo.showPhoto && (
+                <div className="pt-2.5 border-t border-gray-100 space-y-2.5">
+                  {personalInfo.photo ? (
+                    <div className="flex items-center gap-3 p-2 bg-purple-50/60 border border-purple-100 rounded-lg">
+                      <img 
+                        src={personalInfo.photo} 
+                        alt="Vista previa foto" 
+                        className="w-14 h-14 rounded-lg object-cover border border-purple-200 shadow-2xs shrink-0"
+                      />
+                      <div className="flex-1 min-w-0">
+                        <p className="text-xs font-bold text-gray-800 truncate">Foto cargada</p>
+                        <p className="text-[10px] text-gray-500">Lista para vista web y PDF</p>
+                        <div className="flex gap-2 mt-1">
+                          <label className="text-[11px] text-purple-700 font-bold hover:underline cursor-pointer">
+                            Cambiar foto
+                            <input 
+                              type="file" 
+                              accept="image/png, image/jpeg, image/webp" 
+                              onChange={(e) => handlePhotoUpload(e.target.files[0])}
+                              className="hidden" 
+                            />
+                          </label>
+                          <span className="text-gray-300">|</span>
+                          <button 
+                            type="button" 
+                            onClick={handleRemovePhoto} 
+                            className="text-[11px] text-red-600 font-bold hover:underline cursor-pointer"
+                          >
+                            Eliminar
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  ) : (
+                    <div 
+                      onDragOver={(e) => {
+                        e.preventDefault();
+                        setIsPhotoDragging(true);
+                      }}
+                      onDragLeave={() => setIsPhotoDragging(false)}
+                      onDrop={handlePhotoDrop}
+                      className={`border-2 border-dashed rounded-xl p-4 text-center transition-all ${
+                        isPhotoDragging 
+                          ? 'border-purple-600 bg-purple-50/80 scale-[0.99]' 
+                          : 'border-gray-300 hover:border-purple-400 bg-gray-50/70 hover:bg-white'
+                      }`}
+                    >
+                      <UploadCloud className="w-6 h-6 mx-auto text-purple-600 mb-1.5" />
+                      <p className="text-xs font-bold text-gray-700">Arrastra tu fotografía aquí</p>
+                      <p className="text-[10px] text-gray-400 mb-2">o selecciónala desde tu computadora (PNG, JPG, WebP)</p>
+                      <label className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white border border-gray-300 hover:border-purple-500 hover:text-purple-700 text-gray-700 rounded-lg text-xs font-semibold cursor-pointer shadow-2xs transition-colors">
+                        Examinar archivos
+                        <input 
+                          type="file" 
+                          accept="image/png, image/jpeg, image/webp" 
+                          onChange={(e) => handlePhotoUpload(e.target.files[0])}
+                          className="hidden" 
+                        />
+                      </label>
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+
             {/* Formulario para agregar nueva sección */}
             {!showAddSection ? (
               <button 

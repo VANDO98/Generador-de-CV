@@ -39,39 +39,85 @@ export default function CVPreview({ data, sectionOrder }) {
       <div id="cv-print-area" className="a4-page text-sm select-text">
         
         {/* ENCABEZADO */}
-        <div className="text-center mb-5">
-          <h1 className="text-2xl font-bold tracking-wide uppercase text-gray-800 m-0">
-            {personalInfo.name || 'TU NOMBRE COMPLETO'}
-          </h1>
-          {personalInfo.title && (
-            <div className="text-md font-bold text-gray-700 mt-1 uppercase">
-              {personalInfo.title}
+        {personalInfo.showPhoto && personalInfo.photo ? (
+          /* Encabezado adaptable con foto (Estilo Harvard Moderno) */
+          <div className="flex items-center gap-5 mb-5 pb-3 border-b border-gray-200">
+            <div className="shrink-0">
+              <img 
+                src={personalInfo.photo} 
+                alt={personalInfo.name || 'Foto de Perfil'} 
+                className="w-24 h-24 rounded-lg object-cover border border-gray-300 shadow-xs"
+              />
             </div>
-          )}
-          
-          {/* Dynamic Contact Items & Links with Icons */}
-          <div className="flex flex-wrap justify-center items-center gap-x-3 gap-y-1.5 text-xs text-gray-600 mt-3 font-sans">
-            {contactItems && contactItems.map((item, idx) => {
-              if (!item.label) return null;
-              const hasUrl = !!item.url;
-              return (
-                <React.Fragment key={item.id}>
-                  {idx > 0 && <span className="text-gray-400 select-none">|</span>}
-                  <span className="inline-flex items-center">
-                    <ContactIcon name={item.iconName} />
-                    {hasUrl ? (
-                      <a href={item.url} target="_blank" rel="noopener noreferrer" className="hover:underline text-black font-semibold">
-                        {item.label}
-                      </a>
-                    ) : (
-                      <span>{item.label}</span>
-                    )}
-                  </span>
-                </React.Fragment>
-              );
-            })}
+            <div className="flex-1 text-left">
+              <h1 className="text-2xl font-bold tracking-wide uppercase text-gray-800 m-0">
+                {personalInfo.name || 'TU NOMBRE COMPLETO'}
+              </h1>
+              {personalInfo.title && (
+                <div className="text-sm font-bold text-gray-700 mt-0.5 uppercase tracking-wide">
+                  {personalInfo.title}
+                </div>
+              )}
+              {/* Dynamic Contact Items & Links with Icons */}
+              <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 text-xs text-gray-600 mt-2 font-sans">
+                {contactItems && contactItems.map((item, idx) => {
+                  if (!item.label) return null;
+                  const hasUrl = !!item.url;
+                  return (
+                    <React.Fragment key={item.id}>
+                      {idx > 0 && <span className="text-gray-400 select-none">|</span>}
+                      <span className="inline-flex items-center">
+                        <ContactIcon name={item.iconName} />
+                        {hasUrl ? (
+                          <a href={item.url} target="_blank" rel="noopener noreferrer" className="hover:underline text-black font-semibold">
+                            {item.label}
+                          </a>
+                        ) : (
+                          <span>{item.label}</span>
+                        )}
+                      </span>
+                    </React.Fragment>
+                  );
+                })}
+              </div>
+            </div>
           </div>
-        </div>
+        ) : (
+          /* Encabezado Tradicional Centrado */
+          <div className="text-center mb-5">
+            <h1 className="text-2xl font-bold tracking-wide uppercase text-gray-800 m-0">
+              {personalInfo.name || 'TU NOMBRE COMPLETO'}
+            </h1>
+            {personalInfo.title && (
+              <div className="text-md font-bold text-gray-700 mt-1 uppercase">
+                {personalInfo.title}
+              </div>
+            )}
+            
+            {/* Dynamic Contact Items & Links with Icons */}
+            <div className="flex flex-wrap justify-center items-center gap-x-3 gap-y-1.5 text-xs text-gray-600 mt-3 font-sans">
+              {contactItems && contactItems.map((item, idx) => {
+                if (!item.label) return null;
+                const hasUrl = !!item.url;
+                return (
+                  <React.Fragment key={item.id}>
+                    {idx > 0 && <span className="text-gray-400 select-none">|</span>}
+                    <span className="inline-flex items-center">
+                      <ContactIcon name={item.iconName} />
+                      {hasUrl ? (
+                        <a href={item.url} target="_blank" rel="noopener noreferrer" className="hover:underline text-black font-semibold">
+                          {item.label}
+                        </a>
+                      ) : (
+                        <span>{item.label}</span>
+                      )}
+                    </span>
+                  </React.Fragment>
+                );
+              })}
+            </div>
+          </div>
+        )}
 
         {/* SECCIONES DINÁMICAS ORDENADAS */}
         {sectionOrder.map((sectionId) => {
