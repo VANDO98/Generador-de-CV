@@ -52,24 +52,21 @@ export default function CVPreview({ data, sectionOrder }) {
                 </div>
               )}
               {/* Dynamic Contact Items & Links with Icons */}
-              <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 text-xs text-gray-600 mt-2 font-sans">
-                {contactItems && contactItems.map((item, idx) => {
+              <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 text-xs text-gray-600 mt-2 font-sans">
+                {contactItems && contactItems.map((item) => {
                   if (!item.label) return null;
                   const hasUrl = !!item.url;
                   return (
-                    <React.Fragment key={item.id}>
-                      {idx > 0 && <span className="text-gray-400 select-none">|</span>}
-                      <span className="inline-flex items-center">
-                        <ContactIcon name={item.iconName} />
-                        {hasUrl ? (
-                          <a href={item.url} target="_blank" rel="noopener noreferrer" className="hover:underline text-black font-semibold">
-                            {item.label}
-                          </a>
-                        ) : (
-                          <span>{item.label}</span>
-                        )}
-                      </span>
-                    </React.Fragment>
+                    <span key={item.id} className="inline-flex items-center">
+                      <ContactIcon name={item.iconName} />
+                      {hasUrl ? (
+                        <a href={item.url} target="_blank" rel="noopener noreferrer" className="hover:underline text-black font-semibold">
+                          {item.label}
+                        </a>
+                      ) : (
+                        <span>{item.label}</span>
+                      )}
+                    </span>
                   );
                 })}
               </div>
@@ -80,7 +77,7 @@ export default function CVPreview({ data, sectionOrder }) {
               <img 
                 src={personalInfo.photo} 
                 alt={personalInfo.name || 'Foto de Perfil'} 
-                className="w-28 h-28 rounded-full object-cover border-2 border-gray-300 shadow-xs"
+                className="w-28 h-28 rounded-full object-cover border-2 border-gray-700 shadow-xs"
               />
             </div>
           </div>

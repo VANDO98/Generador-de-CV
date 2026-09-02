@@ -75,12 +75,18 @@ const S = StyleSheet.create({
     justifyContent: 'space-between',
     marginBottom: 16,
   },
-  photo: {
+  photoWrapper: {
     width: 80,
     height: 80,
     borderRadius: 40,
-    objectFit: 'cover',
+    borderWidth: 1.5,
+    borderColor: '#374151',
+    overflow: 'hidden',
     marginLeft: 14,
+  },
+  photo: {
+    width: '100%',
+    height: '100%',
   },
   headerTextLeft: {
     flex: 1,
@@ -97,6 +103,13 @@ const S = StyleSheet.create({
   contactRowLeft: {
     flexDirection: 'row', alignItems: 'center',
     flexWrap: 'wrap', marginTop: 6, fontSize: 8.5, color: '#4b5563',
+  },
+  contactItemLeft: {
+    flexDirection: 'row', alignItems: 'center',
+    marginRight: 10, marginVertical: 2,
+  },
+  contactIconLeft: {
+    marginRight: 3.5,
   },
 
   // Contacto — usa Inter (font-sans) igual que el HTML
@@ -277,27 +290,26 @@ export const CVPdf = ({ data, sectionOrder }) => {
               {personalInfo.title ? <Text style={S.jobTitleLeft}>{personalInfo.title}</Text> : null}
               
               <View style={S.contactRowLeft}>
-                {(contactItems || []).map((item, idx) => {
+                {(contactItems || []).map((item) => {
                   if (!item.label) return null;
                   return (
-                    <View key={item.id} style={{ flexDirection: 'row', alignItems: 'center' }}>
-                      {idx > 0 ? <Text style={S.contactSep}>|</Text> : null}
-                      <View style={S.contactItem}>
-                        <View style={{ marginRight: 3, marginTop: 1 }}>{renderIcon(item.iconName)}</View>
-                        {item.url ? (
-                          <Link src={item.url} style={{ textDecoration: 'none' }}>
-                            <Text style={S.contactLabelBold}>{item.label}</Text>
-                          </Link>
-                        ) : (
-                          <Text style={S.contactLabel}>{item.label}</Text>
-                        )}
-                      </View>
+                    <View key={item.id} style={S.contactItemLeft}>
+                      <View style={S.contactIconLeft}>{renderIcon(item.iconName)}</View>
+                      {item.url ? (
+                        <Link src={item.url} style={{ textDecoration: 'none' }}>
+                          <Text style={S.contactLabelBold}>{item.label}</Text>
+                        </Link>
+                      ) : (
+                        <Text style={S.contactLabel}>{item.label}</Text>
+                      )}
                     </View>
                   );
                 })}
               </View>
             </View>
-            <Image src={personalInfo.photo} style={S.photo} />
+            <View style={S.photoWrapper}>
+              <Image src={personalInfo.photo} style={S.photo} />
+            </View>
           </View>
         ) : (
           /* Encabezado Clásico Centrado */
