@@ -80,7 +80,7 @@ export default function CVPreview({ data, sectionOrder }) {
               <img 
                 src={personalInfo.photo} 
                 alt={personalInfo.name || 'Foto de Perfil'} 
-                className="w-20 h-20 rounded-full object-cover border border-gray-300 shadow-2xs"
+                className="w-28 h-28 rounded-full object-cover border-2 border-gray-300 shadow-xs"
               />
             </div>
           </div>

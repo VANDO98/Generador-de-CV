@@ -76,9 +76,9 @@ const S = StyleSheet.create({
     marginBottom: 16,
   },
   photo: {
-    width: 58,
-    height: 58,
-    borderRadius: 29,
+    width: 80,
+    height: 80,
+    borderRadius: 40,
     objectFit: 'cover',
     marginLeft: 14,
   },
