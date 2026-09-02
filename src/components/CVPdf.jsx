@@ -263,7 +263,7 @@ const renderIcon = (name) => {
 
 // ── Documento PDF ──────────────────────────────────────────────────────────
 export const CVPdf = ({ data, sectionOrder }) => {
-  const { personalInfo, sections, contactItems } = data;
+  const { personalInfo = {}, sections = [], contactItems = [] } = data || {};
   const getSection = (id) => sections.find((s) => s.id === id);
 
   return (

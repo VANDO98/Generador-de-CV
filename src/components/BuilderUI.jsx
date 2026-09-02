@@ -1,10 +1,10 @@
+import React, { useState } from 'react';
 import { 
   Eye, EyeOff, ArrowUp, ArrowDown, Plus, Trash2, 
   Save, Download, Upload, Printer, FolderOpen, PlusCircle,
   Globe, Mail, Phone, MapPin, Link, FileText, Edit2, GripVertical,
-  Camera, User, UploadCloud, X
+  Camera, UploadCloud
 } from 'lucide-react';
-import { PDFDownloadLink, usePDF } from '@react-pdf/renderer';
 import { CVPdf } from './CVPdf';
 
 const ICON_OPTIONS = [

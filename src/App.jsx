@@ -113,7 +113,7 @@ const initialCVData = {
 
 const initialSectionOrder = ['summary', 'experience', 'projects', 'education', 'skills'];
 
-export default function App() {
+function MainApp() {
   const [data, setData] = useState(initialCVData);
   const [sectionOrder, setSectionOrder] = useState(initialSectionOrder);
   const [profiles, setProfiles] = useState([]);
@@ -277,5 +277,64 @@ export default function App() {
         />
       </div>
     </div>
+  );
+}
+
+class ErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false, error: null };
+  }
+
+  static getDerivedStateFromError(error) {
+    return { hasError: true, error };
+  }
+
+  componentDidCatch(error, errorInfo) {
+    console.error('Error capturado por ErrorBoundary:', error, errorInfo);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-6 text-center font-sans">
+          <div className="bg-white p-6 rounded-2xl shadow-lg border border-gray-200 max-w-md w-full space-y-4">
+            <div className="w-12 h-12 bg-red-100 text-red-600 rounded-full flex items-center justify-center mx-auto text-xl font-bold">
+              !
+            </div>
+            <h2 className="text-lg font-bold text-gray-800">Ha ocurrido un problema al cargar los datos</h2>
+            <p className="text-xs text-gray-500">
+              {this.state.error?.message || 'Error inesperado de renderizado.'}
+            </p>
+            <div className="pt-2 flex flex-col gap-2">
+              <button
+                onClick={() => window.location.reload()}
+                className="w-full bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold py-2.5 rounded-lg transition-colors cursor-pointer"
+              >
+                Recargar Aplicación
+              </button>
+              <button
+                onClick={() => {
+                  localStorage.removeItem('cv_builder_profiles_v2');
+                  window.location.reload();
+                }}
+                className="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs font-semibold py-2 rounded-lg transition-colors cursor-pointer"
+              >
+                Limpiar datos corruptos y reiniciar
+              </button>
+            </div>
+          </div>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
+
+export default function App() {
+  return (
+    <ErrorBoundary>
+      <MainApp />
+    </ErrorBoundary>
   );
 }

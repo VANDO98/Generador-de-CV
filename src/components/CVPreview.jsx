@@ -29,7 +29,7 @@ const ContactIcon = ({ name }) => {
 };
 
 export default function CVPreview({ data, sectionOrder }) {
-  const { personalInfo, sections, contactItems } = data;
+  const { personalInfo = {}, sections = [], contactItems = [] } = data || {};
 
   // Helper to get section by ID
   const getSection = (id) => sections.find((s) => s.id === id);
