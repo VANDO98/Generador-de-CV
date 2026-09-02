@@ -68,21 +68,19 @@ const S = StyleSheet.create({
     textTransform: 'uppercase', letterSpacing: 0.5, textAlign: 'center',
   },
 
-  // Header Con Foto (Estilo Harvard Moderno)
+  // Header Con Foto (Estilo Harvard Ejecutivo - Foto a la derecha)
   headerWithPhoto: {
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'space-between',
     marginBottom: 16,
-    paddingBottom: 10,
-    borderBottomWidth: 0.5,
-    borderBottomColor: '#d1d5db',
   },
   photo: {
-    width: 65,
-    height: 65,
-    borderRadius: 6,
+    width: 58,
+    height: 58,
+    borderRadius: 29,
     objectFit: 'cover',
-    marginRight: 14,
+    marginLeft: 14,
   },
   headerTextLeft: {
     flex: 1,
@@ -272,9 +270,8 @@ export const CVPdf = ({ data, sectionOrder }) => {
 
         {/* Encabezado */}
         {personalInfo.showPhoto && personalInfo.photo ? (
-          /* Encabezado Con Foto */
+          /* Encabezado Con Foto (Foto circular a la derecha) */
           <View style={S.headerWithPhoto}>
-            <Image src={personalInfo.photo} style={S.photo} />
             <View style={S.headerTextLeft}>
               <Text style={S.nameLeft}>{personalInfo.name || 'TU NOMBRE'}</Text>
               {personalInfo.title ? <Text style={S.jobTitleLeft}>{personalInfo.title}</Text> : null}
@@ -300,6 +297,7 @@ export const CVPdf = ({ data, sectionOrder }) => {
                 })}
               </View>
             </View>
+            <Image src={personalInfo.photo} style={S.photo} />
           </View>
         ) : (
           /* Encabezado Clásico Centrado */

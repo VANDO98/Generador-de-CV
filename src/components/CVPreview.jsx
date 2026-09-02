@@ -40,21 +40,14 @@ export default function CVPreview({ data, sectionOrder }) {
         
         {/* ENCABEZADO */}
         {personalInfo.showPhoto && personalInfo.photo ? (
-          /* Encabezado adaptable con foto (Estilo Harvard Moderno) */
-          <div className="flex items-center gap-5 mb-5 pb-3 border-b border-gray-200">
-            <div className="shrink-0">
-              <img 
-                src={personalInfo.photo} 
-                alt={personalInfo.name || 'Foto de Perfil'} 
-                className="w-24 h-24 rounded-lg object-cover border border-gray-300 shadow-xs"
-              />
-            </div>
+          /* Encabezado adaptable con foto circular a la derecha (Estilo Harvard Ejecutivo) */
+          <div className="flex items-center justify-between gap-6 mb-5">
             <div className="flex-1 text-left">
               <h1 className="text-2xl font-bold tracking-wide uppercase text-gray-800 m-0">
                 {personalInfo.name || 'TU NOMBRE COMPLETO'}
               </h1>
               {personalInfo.title && (
-                <div className="text-sm font-bold text-gray-700 mt-0.5 uppercase tracking-wide">
+                <div className="text-sm font-bold text-gray-700 mt-1 uppercase tracking-wide">
                   {personalInfo.title}
                 </div>
               )}
@@ -80,6 +73,15 @@ export default function CVPreview({ data, sectionOrder }) {
                   );
                 })}
               </div>
+            </div>
+            
+            {/* Foto circular a la derecha */}
+            <div className="shrink-0">
+              <img 
+                src={personalInfo.photo} 
+                alt={personalInfo.name || 'Foto de Perfil'} 
+                className="w-20 h-20 rounded-full object-cover border border-gray-300 shadow-2xs"
+              />
             </div>
           </div>
         ) : (
