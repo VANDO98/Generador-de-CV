@@ -72,12 +72,12 @@ export default function CVPreview({ data, sectionOrder }) {
               </div>
             </div>
             
-            {/* Foto circular a la derecha */}
+            {/* Foto rectangular tipo carnet a la derecha */}
             <div className="shrink-0">
               <img 
                 src={personalInfo.photo} 
                 alt={personalInfo.name || 'Foto de Perfil'} 
-                className="w-28 h-28 rounded-full object-cover border-2 border-gray-700 shadow-xs"
+                className="w-[84px] h-[105px] rounded-md object-cover border-2 border-gray-700 shadow-xs"
               />
             </div>
           </div>

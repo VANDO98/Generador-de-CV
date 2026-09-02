@@ -68,7 +68,7 @@ const S = StyleSheet.create({
     textTransform: 'uppercase', letterSpacing: 0.5, textAlign: 'center',
   },
 
-  // Header Con Foto (Estilo Harvard Ejecutivo - Foto a la derecha)
+  // Header Con Foto (Estilo Harvard Ejecutivo - Foto rectangular tipo carnet a la derecha)
   headerWithPhoto: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -76,9 +76,9 @@ const S = StyleSheet.create({
     marginBottom: 16,
   },
   photoWrapper: {
-    width: 80,
-    height: 80,
-    borderRadius: 40,
+    width: 68,
+    height: 86,
+    borderRadius: 4,
     borderWidth: 1.5,
     borderColor: '#374151',
     overflow: 'hidden',
@@ -87,6 +87,7 @@ const S = StyleSheet.create({
   photo: {
     width: '100%',
     height: '100%',
+    objectFit: 'cover',
   },
   headerTextLeft: {
     flex: 1,
